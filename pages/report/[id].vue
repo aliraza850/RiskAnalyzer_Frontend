@@ -49,13 +49,21 @@
           </div>
         </div>
 
-            <!-- Animated Ring -->
-            <svg class="absolute inset-0 w-full h-full -rotate-90 pointer-events-none" viewBox="0 0 100 100">
-               <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="289" :stroke-dashoffset="289 - (289 * report.overallScore / 100)" class="transition-all duration-1000 ease-out opacity-50" :class="getRiskColorClass(report.overallScore, 'text')"></circle>
+        <div class="flex flex-col items-center justify-center p-8 rounded-2xl bg-surface-variant/20 dark:bg-black/40 border border-outline-variant/20 dark:border-white/5 min-w-[240px] relative group">
+          <div class="absolute inset-0 bg-surface-tint/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          <div class="text-outline font-label-caps text-[10px] tracking-[0.3em] mb-4 uppercase">Risk Index</div>
+          <div class="relative w-32 h-32 flex items-center justify-center">
+            <svg class="w-full h-full transform -rotate-90">
+              <circle class="text-outline-variant/20 dark:text-white/5" stroke="currentColor" stroke-width="8" fill="transparent" r="58" cx="64" cy="64"/>
+              <circle :class="getRiskColorClass(report.overallScore, 'text')" stroke="currentColor" stroke-width="8" :stroke-dasharray="2 * Math.PI * 58" :stroke-dashoffset="2 * Math.PI * 58 * (1 - report.overallScore / 100)" stroke-linecap="round" fill="transparent" r="58" cx="64" cy="64" class="transition-all duration-1000 ease-out"/>
             </svg>
+            <div class="absolute flex flex-col items-center">
+              <span class="font-display-lg text-4xl md:text-5xl text-on-surface">{{ report.overallScore }}</span>
+              <span class="font-label-caps text-[8px] text-outline tracking-widest">/ 100</span>
+            </div>
           </div>
-          <div class="px-6 py-2 rounded-lg bg-white/5 border border-white/10 text-outline font-label-caps text-[10px] tracking-widest uppercase">
-            {{ getRiskLevelLabel(report.overallScore) }} Criticality
+          <div class="mt-4 font-label-caps text-xs tracking-widest" :class="getRiskColorClass(report.overallScore)">
+            {{ getRiskLevelLabel(report.overallScore) }} CRITICALITY
           </div>
         </div>
       </div>
