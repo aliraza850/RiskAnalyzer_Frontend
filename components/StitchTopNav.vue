@@ -4,16 +4,16 @@
       <NuxtLink to="/" class="text-2xl tracking-tighter logo-gradient shrink-0">RiskAnalyzer</NuxtLink>
       
       <!-- Search Bar (Stitch Style) - Hidden on Mobile -->
-      <div class="hidden lg:flex flex-1 max-w-md mx-12 items-center bg-white/10 dark:bg-black/20 border border-white/20 dark:border-white/10 rounded-full px-4 py-2 shadow-inner transition-all focus-within:border-cyan-400/50 focus-within:bg-white/20 dark:focus-within:bg-black/40">
-        <span class="material-symbols-outlined text-cyan-500 dark:text-cyan-400 mr-2 text-xl">search</span>
-        <input class="bg-transparent border-none outline-none w-full text-on-surface placeholder-slate-500 font-body-md text-sm" placeholder="Search insights..." type="text"/>
+      <div class="hidden lg:flex flex-1 max-w-md mx-12 items-center bg-surface-variant/30 dark:bg-black/20 border border-outline-variant/30 dark:border-white/10 rounded-full px-4 py-2 shadow-inner transition-all focus-within:border-surface-tint/50 focus-within:bg-surface-variant/50 dark:focus-within:bg-black/40">
+        <span class="material-symbols-outlined text-surface-tint mr-2 text-xl">search</span>
+        <input class="bg-transparent border-none outline-none w-full text-on-surface placeholder-outline font-body-md text-sm" placeholder="Search insights..." type="text"/>
       </div>
 
       <nav class="hidden md:flex gap-4">
         <NuxtLink 
           to="/" 
           class="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-xs uppercase tracking-widest transition-all"
-          :class="[route.path === '/' ? 'text-cyan-500 bg-cyan-500/10 shadow-[inset_0_0_10px_rgba(0,240,255,0.1)] border-b-2 border-cyan-400' : 'text-slate-500 hover:text-cyan-400 hover:bg-cyan-400/5']"
+          :class="[route.path === '/' ? 'text-surface-tint bg-surface-tint/10 shadow-[inset_0_0_10px_rgba(0,240,255,0.1)] border-b-2 border-surface-tint' : 'text-outline hover:text-surface-tint hover:bg-surface-tint/5']"
         >
           <span class="material-symbols-outlined text-lg" :style="route.path === '/' ? 'font-variation-settings: \'FILL\' 1;' : ''">dashboard</span>
           <span>Overview</span>
@@ -21,7 +21,7 @@
         <NuxtLink 
           to="/analyze" 
           class="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-xs uppercase tracking-widest transition-all"
-          :class="[route.path === '/analyze' ? 'text-cyan-500 bg-cyan-500/10 shadow-[inset_0_0_10px_rgba(0,240,255,0.1)] border-b-2 border-cyan-400' : 'text-slate-500 hover:text-cyan-400 hover:bg-cyan-400/5']"
+          :class="[route.path === '/analyze' ? 'text-surface-tint bg-surface-tint/10 shadow-[inset_0_0_10px_rgba(0,240,255,0.1)] border-b-2 border-surface-tint' : 'text-outline hover:text-surface-tint hover:bg-surface-tint/5']"
         >
           <span class="material-symbols-outlined text-lg" :style="route.path === '/analyze' ? 'font-variation-settings: \'FILL\' 1;' : ''">security</span>
           <span>Threat Actors</span>
@@ -34,7 +34,7 @@
       <div class="hidden md:flex items-center gap-2">
         <button 
           @click="toggleTheme" 
-          class="p-2 rounded-full hover:bg-cyan-500/10 transition-all duration-300 active:scale-95 flex items-center justify-center text-cyan-600 dark:text-cyan-400"
+          class="p-2 rounded-full hover:bg-surface-tint/10 transition-all duration-300 active:scale-95 flex items-center justify-center text-surface-tint"
           :title="isDark ? 'Switch to Bright Mode' : 'Switch to Dark Mode'"
         >
           <span class="material-symbols-outlined text-2xl">
@@ -42,19 +42,19 @@
           </span>
         </button>
 
-        <button class="p-2 rounded-full hover:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 transition-all duration-300 active:scale-95 flex items-center justify-center">
+        <button class="p-2 rounded-full hover:bg-surface-tint/10 text-surface-tint transition-all duration-300 active:scale-95 flex items-center justify-center">
           <span class="material-symbols-outlined">notifications</span>
         </button>
         
-        <button class="p-2 rounded-full hover:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 transition-all duration-300 active:scale-95 flex items-center justify-center ml-2">
-          <img alt="Analyst profile" class="w-8 h-8 rounded-full border border-primary/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCROgtumNVcC7H0-8FsckQPMLPvHBFb46E7CmLoeN7RTyBvKvBlUgdQlTCKfrsJIKsdQDh3rz6pXkWlEODZOQAvFtqxAl6PW42f3Lda3tK8qDH7fOXi00a6uCXpbWlfsW1gsSB0pDwvKT2tVLoZmimfych1PmCVWxj0tnhbcBKjT6nYLhaUC80qdHQCk-gN7J_Bqq7mAz1fVHpdZXiR46EN6k6rQz63xDOIRNWLcZq69gF81Asl-RJT8oXvL19_uC_9tLhgW7E-wDw"/>
+        <button class="p-2 rounded-full hover:bg-surface-tint/10 text-surface-tint transition-all duration-300 active:scale-95 flex items-center justify-center ml-2">
+          <img alt="Analyst profile" class="w-8 h-8 rounded-full border border-surface-tint/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCROgtumNVcC7H0-8FsckQPMLPvHBFb46E7CmLoeN7RTyBvKvBlUgdQlTCKfrsJIKsdQDh3rz6pXkWlEODZOQAvFtqxAl6PW42f3Lda3tK8qDH7fOXi00a6uCXpbWlfsW1gsSB0pDwvKT2tVLoZmimfych1PmCVWxj0tnhbcBKjT6nYLhaUC80qdHQCk-gN7J_Bqq7mAz1fVHpdZXiR46EN6k6rQz63xDOIRNWLcZq69gF81Asl-RJT8oXvL19_uC_9tLhgW7E-wDw"/>
         </button>
       </div>
 
       <!-- Hamburger Menu Button (Mobile Only) -->
       <button 
         @click="isMenuOpen = true" 
-        class="md:hidden p-3 rounded-lg hover:bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 transition-all"
+        class="md:hidden p-3 rounded-lg hover:bg-surface-tint/10 text-surface-tint transition-all"
       >
         <span class="material-symbols-outlined text-3xl">menu</span>
       </button>
@@ -67,7 +67,7 @@
         <div @click="isMenuOpen = false" class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"></div>
         
         <!-- Menu Content -->
-        <div class="relative ml-auto w-[280px] max-w-[80vw] h-full bg-[#111827] dark:bg-[#0d1117] shadow-2xl flex flex-col p-6 border-l border-white/10">
+        <div class="relative ml-auto w-[280px] max-w-[80vw] h-full bg-surface dark:bg-[#0d1117] shadow-2xl flex flex-col p-6 border-l border-outline-variant/20 dark:border-white/10">
           <div class="flex items-center justify-between mb-8">
             <span class="text-xl tracking-tighter logo-gradient">RiskAnalyzer</span>
             <button @click="isMenuOpen = false" class="p-2 text-outline hover:text-on-surface transition-colors">
@@ -80,7 +80,7 @@
               to="/" 
               @click="isMenuOpen = false"
               class="flex items-center gap-4 p-4 rounded-xl transition-all"
-              :class="[route.path === '/' ? 'text-cyan-500 bg-cyan-500/10' : 'text-slate-400 hover:bg-white/5']"
+              :class="[route.path === '/' ? 'text-surface-tint bg-surface-tint/10' : 'text-outline hover:bg-surface-variant/50 dark:hover:bg-white/5']"
             >
               <span class="material-symbols-outlined">dashboard</span>
               <span class="font-medium">Overview</span>
@@ -90,7 +90,7 @@
               to="/analyze" 
               @click="isMenuOpen = false"
               class="flex items-center gap-4 p-4 rounded-xl transition-all"
-              :class="[route.path === '/analyze' ? 'text-cyan-500 bg-cyan-500/10' : 'text-slate-400 hover:bg-white/5']"
+              :class="[route.path === '/analyze' ? 'text-surface-tint bg-surface-tint/10' : 'text-outline hover:bg-surface-variant/50 dark:hover:bg-white/5']"
             >
               <span class="material-symbols-outlined">security</span>
               <span class="font-medium">Threat Actors</span>
@@ -98,13 +98,13 @@
 
             <button 
               @click="toggleTheme" 
-              class="flex items-center gap-4 p-4 rounded-xl text-slate-400 hover:bg-white/5 transition-all text-left w-full"
+              class="flex items-center gap-4 p-4 rounded-xl text-outline hover:bg-surface-variant/50 dark:hover:bg-white/5 transition-all text-left w-full"
             >
               <span class="material-symbols-outlined">{{ isDark ? 'light_mode' : 'dark_mode' }}</span>
               <span class="font-medium">{{ isDark ? 'Light Mode' : 'Dark Mode' }}</span>
             </button>
 
-            <div class="h-px bg-white/10 my-2"></div>
+            <div class="h-px bg-outline-variant/20 dark:bg-white/10 my-2"></div>
 
             <button class="flex items-center gap-4 p-4 rounded-xl text-slate-400 hover:bg-white/5 transition-all text-left w-full opacity-50 cursor-not-allowed">
               <span class="material-symbols-outlined">settings</span>

@@ -5,7 +5,7 @@
       <span class="font-headline-xl text-headline-xl text-on-surface block mb-stack-sm">{{ total }}</span>
       <div class="h-16 w-full flex items-end opacity-70">
         <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 40">
-          <polyline class="drop-shadow-[0_4px_4px_rgba(0,219,233,0.3)]" fill="none" points="0,30 20,25 40,35 60,15 80,20 100,5" stroke="#00dbe9" stroke-width="2"></polyline>
+          <polyline class="drop-shadow-[0_4px_4px_rgba(0,219,233,0.3)] text-surface-tint" fill="none" points="0,30 20,25 40,35 60,15 80,20 100,5" stroke="currentColor" stroke-width="2"></polyline>
         </svg>
       </div>
     </div>

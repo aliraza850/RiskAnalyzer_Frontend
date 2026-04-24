@@ -1,6 +1,6 @@
 <template>
   <div class="glass-panel rounded-xl p-glass-padding overflow-hidden">
-    <div class="flex justify-between items-end mb-stack-lg border-b border-white/5 pb-stack-sm">
+    <div class="flex justify-between items-end mb-stack-lg border-b border-outline-variant/20 dark:border-white/5 pb-stack-sm">
       <h3 class="font-headline-md text-xl md:text-headline-md text-on-surface">Recent Reports</h3>
       <button class="font-label-caps text-[10px] md:text-label-caps text-surface-tint hover:text-primary transition-colors flex items-center gap-1">
         VIEW ALL <span class="material-symbols-outlined text-sm">arrow_forward</span>
@@ -10,7 +10,7 @@
     <div class="overflow-x-auto custom-scrollbar -mx-glass-padding px-glass-padding">
       <table class="w-full text-left whitespace-nowrap min-w-[700px] lg:min-w-0">
         <thead>
-          <tr class="font-label-caps text-label-caps text-outline border-b border-white/5">
+          <tr class="font-label-caps text-label-caps text-outline border-b border-outline-variant/20 dark:border-white/5">
             <th class="py-stack-sm font-normal">Date</th>
             <th class="py-stack-sm font-normal">Title</th>
             <th class="py-stack-sm font-normal">Source</th>
@@ -22,7 +22,7 @@
           <tr v-if="loading">
             <td colspan="5" class="py-10 text-center text-outline">Loading analyses...</td>
           </tr>
-          <tr v-else v-for="report in reports" :key="report._id" class="border-b border-white/5 hover:bg-white/[0.02] transition-colors cursor-pointer group">
+          <tr v-else v-for="report in reports" :key="report._id" class="border-b border-outline-variant/20 dark:border-white/5 hover:bg-surface-variant/20 dark:hover:bg-white/[0.02] transition-colors cursor-pointer group">
             <td class="py-stack-md text-on-surface-variant">{{ new Date(report.createdAt).toLocaleDateString() }}</td>
             <td class="py-stack-md text-on-surface group-hover:text-surface-tint transition-colors">
               <NuxtLink :to="`/report/${report._id}`">{{ report.title }}</NuxtLink>
@@ -34,7 +34,7 @@
               </span>
             </td>
             <td class="py-stack-md pr-4">
-              <div class="w-full bg-surface-container-high h-1 rounded-full overflow-hidden">
+              <div class="w-full bg-surface-variant dark:bg-surface-container-high h-1 rounded-full overflow-hidden">
                 <div class="bg-surface-tint h-full shadow-[0_0_8px_rgba(0,219,233,0.5)] transition-all duration-500" :style="{ width: report.confidenceScore + '%' }"></div>
               </div>
             </td>
