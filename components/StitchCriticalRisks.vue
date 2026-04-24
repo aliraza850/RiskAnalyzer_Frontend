@@ -1,5 +1,5 @@
 <template>
-  <div class="glass-panel col-span-1 md:col-span-4 rounded-xl p-glass-padding flex flex-col items-center justify-center relative group border-secondary-container/30">
+  <div class="glass-panel col-span-1 lg:col-span-4 md:col-span-12 rounded-xl p-glass-padding flex flex-col items-center justify-center relative group border-secondary-container/30">
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-secondary-container to-transparent opacity-50"></div>
     <h3 class="font-label-caps text-label-caps text-outline w-full text-left mb-stack-lg uppercase tracking-[0.3em]">Critical Risks</h3>
     <div class="flex-1 flex items-center justify-center">

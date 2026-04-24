@@ -1,5 +1,5 @@
 <template>
-  <div class="glass-panel col-span-1 md:col-span-4 rounded-xl p-glass-padding flex flex-col justify-between relative group">
+  <div class="glass-panel col-span-1 lg:col-span-4 md:col-span-6 rounded-xl p-glass-padding flex flex-col justify-between relative group">
     <h3 class="font-label-caps text-label-caps text-outline uppercase tracking-[0.3em]">Total Analyses</h3>
     <div class="mt-stack-md">
       <span class="font-headline-xl text-headline-xl text-on-surface block mb-stack-sm">{{ total }}</span>

@@ -6,8 +6,8 @@
     </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
-      <div class="lg:col-span-7">
-        <div class="glass-panel rounded-xl p-6 md:p-glass-padding">
+      <div class="lg:col-span-7 xl:col-span-8">
+        <div class="glass-panel rounded-2xl p-6 md:p-10 border border-white/10 shadow-2xl">
           <div class="flex gap-2 mb-margin bg-black/20 p-2 rounded-lg">
             <button 
               class="flex-1 py-3 rounded-md font-label-caps text-[10px] md:text-label-caps transition-all min-h-[44px]"
@@ -85,8 +85,8 @@
       </div>
 
       <!-- Status Panel -->
-      <div class="lg:col-span-5 h-full">
-        <div class="glass-panel rounded-xl p-6 md:p-glass-padding h-full flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[300px] md:min-h-[400px]">
+      <div class="lg:col-span-5 xl:col-span-4 h-full">
+        <div class="glass-panel rounded-2xl p-6 md:p-10 h-full border border-white/10 flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[300px] md:min-h-[400px]">
           <div v-if="!isAnalyzing && !result" class="space-y-stack-lg opacity-50">
              <span class="material-symbols-outlined text-5xl md:text-display-lg text-outline">radar</span>
              <h3 class="font-headline-md text-xl md:text-headline-md text-on-surface">Awaiting Input</h3>

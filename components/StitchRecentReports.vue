@@ -7,8 +7,8 @@
       </button>
     </div>
     
-    <div class="overflow-x-auto custom-scrollbar">
-      <table class="w-full text-left whitespace-nowrap min-w-[600px] md:min-w-0">
+    <div class="overflow-x-auto custom-scrollbar -mx-glass-padding px-glass-padding">
+      <table class="w-full text-left whitespace-nowrap min-w-[700px] lg:min-w-0">
         <thead>
           <tr class="font-label-caps text-label-caps text-outline border-b border-white/5">
             <th class="py-stack-sm font-normal">Date</th>
