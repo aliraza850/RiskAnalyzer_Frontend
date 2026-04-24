@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Bright Theme (from Stitch Design) */
+  --color-primary: #00696f;
+  --color-on-primary: #ffffff;
+  --color-background: #f9f9ff;
+  --color-on-background: #111c2d;
+  --color-surface: #f9f9ff;
+  --color-on-surface: #111c2d;
+  --color-surface-variant: #d8e3fb;
+  --color-on-surface-variant: #3a494b;
+  --color-outline: #6a7a7b;
+  --color-outline-variant: #b9cacb;
+  --color-surface-tint: #00696f;
+  --color-surface-container-high: #dee8ff;
+  --color-surface-container-lowest: #ffffff;
+  
+  --bg-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAPDAZux5Bomk2wzUk33pzGWrWpeAl2Z41KOcibAG6XQ3-nL4covskJzWiok9LRh0kZtzXoLiHRNBe_GpKq4m0mzLuZt6CKyUsb1HdiHqcyoVkMMEgkANlzG1WW9R1NGPGsvtFQ2aD3X9bZHNcubFf8QY8vMOKGMmOAF6HOXi5iIa2Qd6f3gAtQHB8VNZrpYQiKUydbOWHQkjDUBMyy9g0NTjlHIYg7rqUaGLXbtHQq8JSZQWIAqMzgO1CN-VzRFYnXeZqvqrSeRHc');
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+  --nav-bg: rgba(255, 255, 255, 0.7);
+  --nav-border: rgba(255, 255, 255, 0.4);
+}
+
+.dark {
+  --color-primary: #dbfcff;
+  --color-on-primary: #00363a;
+  --color-background: #0c1324;
+  --color-on-background: #dce1fb;
+  --color-surface: #0c1324;
+  --color-on-surface: #dce1fb;
+  --color-surface-variant: #2e3447;
+  --color-on-surface-variant: #b9cacb;
+  --color-outline: #849495;
+  --color-outline-variant: #3b494b;
+  --color-surface-tint: #00dbe9;
+  --color-surface-container-high: #23293c;
+  --color-surface-container-lowest: #070d1f;
+
+  --bg-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAaZmP9LEIkwsHqPmiZVoyOWAFUfdD-dkjx_H9P5JkaFteYz8ftLsO-F7VrIYIzooPPXtqo_wFHY5okT6V-Lrtbp5I_kqSR4ENnd1CXC327_j_tywzk7evZwS3voGtbSn40hkFug3-fqgyu-g-lz5VKFMV0PvZq1iWfXKdfH_hKtJ13d3SY_EdkTfgGi0O1qm6_0K4h8tuSUfItilzLkZucIRlS38IkgE-1Xd29c6-FH-GqUbuyxnmA0ZMV10gj_9JuJ6oRQ_uUKUY');
+  --glass-bg: rgba(12, 19, 36, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --nav-bg: rgba(12, 19, 36, 0.7);
+  --nav-border: rgba(255, 255, 255, 0.05);
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-background min-h-screen font-body-md transition-colors duration-300;
+  }
+  
+  ::selection {
+    background-color: var(--color-surface-tint);
+    color: var(--color-on-primary);
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+  }
+
+  .nav-glass {
+    background: var(--nav-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--nav-border);
+    box-shadow: 0 4px 30px rgba(0, 242, 255, 0.05);
+  }
+
+  .logo-gradient {
+    @apply bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent font-bold;
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 219, 233, 0.5);
+  }
+
+  .text-glow-magenta {
+    text-shadow: 0 0 15px rgba(254, 0, 254, 0.8);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface-container-lowest;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-variant rounded-full hover:bg-outline;
+}

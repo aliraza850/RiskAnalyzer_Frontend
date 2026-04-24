@@ -1,0 +1,27 @@
+<template>
+  <div class="bg-background text-on-background min-h-screen flex font-body-md overflow-hidden selection:bg-surface-tint/30">
+    <AnimatedBackground />
+    
+    <!-- Level 0: Deep Background Overlay -->
+    <div class="fixed inset-0 z-0 pointer-events-none transition-all duration-500" :class="isDark ? 'opacity-20' : 'opacity-60 mix-blend-multiply'" :style="{ backgroundImage: 'var(--bg-image)', backgroundSize: 'cover', backgroundPosition: 'center' }"></div>
+
+    <div class="flex-1 flex flex-col relative z-10">
+      <StitchTopNav />
+      
+      <main class="flex-1 mt-20 p-6 md:p-margin h-[calc(100vh-80px)] pb-32 md:pb-margin overflow-y-auto custom-scrollbar">
+        <NuxtPage />
+      </main>
+
+      <StitchBottomNav />
+    </div>
+  </div>
+</template>
+
+<script setup>
+// Layout components are auto-imported in Nuxt 3
+const isDark = useState('isDark', () => true);
+</script>
+
+<style>
+/* Global styles are now in assets/css/main.css */
+</style>
