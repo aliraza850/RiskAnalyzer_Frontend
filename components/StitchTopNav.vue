@@ -42,15 +42,8 @@
           </span>
         </button>
 
-        <button class="p-2 rounded-full hover:bg-surface-tint/10 text-surface-tint transition-all duration-300 active:scale-95 flex items-center justify-center">
-          <span class="material-symbols-outlined">notifications</span>
-        </button>
         
         <div v-if="user" class="flex items-center gap-3 ml-2 group cursor-pointer relative">
-          <div class="flex flex-col items-end mr-1">
-            <span class="text-[10px] text-outline tracking-widest uppercase font-bold leading-none mb-1">Authenticated</span>
-            <span class="text-xs text-on-surface font-medium max-w-[120px] truncate">{{ user.email }}</span>
-          </div>
           <button @click="handleLogout" class="p-2 rounded-full hover:bg-error/10 text-outline hover:text-error transition-all" title="Logout">
             <span class="material-symbols-outlined">logout</span>
           </button>
@@ -126,15 +119,6 @@
           <!-- User Profile Section -->
           <div class="mt-auto border-t border-white/10 pt-6">
             <div v-if="user" class="flex flex-col gap-4">
-              <div class="flex items-center gap-4 px-2">
-                <div class="w-10 h-10 rounded-full bg-surface-tint/20 flex items-center justify-center text-surface-tint border border-surface-tint/30">
-                  <span class="material-symbols-outlined">person</span>
-                </div>
-                <div class="flex flex-col">
-                  <span class="text-sm font-bold text-on-surface truncate max-w-[160px]">{{ user.email }}</span>
-                  <span class="text-xs text-outline tracking-wider uppercase">Authenticated</span>
-                </div>
-              </div>
               <button @click="handleLogout" class="w-full py-3 rounded-xl bg-error/10 text-error border border-error/20 hover:bg-error/20 transition-all font-bold tracking-widest text-xs">
                 LOG OUT
               </button>
