@@ -3,7 +3,7 @@
     <AnimatedBackground />
     
     <!-- Level 0: Deep Background Overlay -->
-    <div class="fixed inset-0 z-0 pointer-events-none transition-all duration-500" :class="isDark ? 'opacity-20' : 'opacity-60 mix-blend-multiply'" :style="{ backgroundImage: 'var(--bg-image)', backgroundSize: 'cover', backgroundPosition: 'center' }"></div>
+    <div class="fixed inset-0 z-0 pointer-events-none transition-all duration-500" :class="isDark ? 'opacity-20' : 'opacity-40'" :style="{ backgroundImage: 'var(--bg-image)', backgroundSize: 'cover', backgroundPosition: 'center' }"></div>
 
     <div class="flex-1 flex flex-col relative z-10">
       <StitchTopNav v-if="!isLanding" />

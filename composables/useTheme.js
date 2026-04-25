@@ -11,11 +11,9 @@ export const useTheme = () => {
     
     if (isDark.value) {
       document.documentElement.classList.add('dark');
-      document.documentElement.classList.remove('light');
       localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      document.documentElement.classList.add('light');
       localStorage.setItem('theme', 'light');
     }
   };
@@ -27,7 +25,8 @@ export const useTheme = () => {
     if (savedTheme) {
       isDark.value = savedTheme === 'dark';
     } else {
-      isDark.value = true; // Default to dark
+      // Default to dark but allow CSS :root to handle the light state
+      isDark.value = true;
     }
     applyTheme();
   };
