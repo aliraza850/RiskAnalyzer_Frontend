@@ -3,9 +3,15 @@
     <!-- Welcome Header -->
     <div class="mb-8" v-if="user">
       <h1 class="text-3xl font-headline-xl text-white">Command Center</h1>
-      <p class="text-on-primary-container font-body-md mt-1">
-        Welcome back, <span class="text-surface-tint font-bold">{{ user.email }}</span>. Reviewing {{ reports.length }} active risk assessments.
-      </p>
+      <div v-if="!loading">
+        <p class="text-on-primary-container font-body-md mt-1">
+          Welcome back, <span class="text-surface-tint font-bold">{{ user.email }}</span>. Reviewing {{ reports.length }} active risk assessments.
+        </p>
+      </div>
+      <div v-else class="flex items-center gap-2 mt-1">
+        <span class="w-2 h-2 rounded-full bg-surface-tint animate-pulse"></span>
+        <p class="text-on-primary-container font-body-md italic opacity-70">Synchronizing intelligence data...</p>
+      </div>
     </div>
 
     <!-- Hero Section: Bento Grid -->
