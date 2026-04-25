@@ -1,6 +1,8 @@
 <template>
   <div class="bg-background text-on-background min-h-screen flex font-body-md overflow-hidden selection:bg-surface-tint/30">
-    <AnimatedBackground />
+    <ClientOnly>
+      <AnimatedBackground />
+    </ClientOnly>
     
     <!-- Level 0: Deep Background Overlay -->
     <div class="fixed inset-0 z-0 pointer-events-none transition-all duration-500" :class="isDark ? 'opacity-20' : 'opacity-40'" :style="{ backgroundImage: 'var(--bg-image)', backgroundSize: 'cover', backgroundPosition: 'center' }"></div>
