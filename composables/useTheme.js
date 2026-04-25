@@ -1,9 +1,10 @@
 import { computed } from 'vue';
 
 export const useTheme = () => {
+  // Always default to true (Dark Mode) on every fresh visit
   const isDark = useState('isDark', () => true);
 
-  // Use useHead to manage the <html> class reactively
+  // Sync the 'dark' class to the <html> tag reactively
   useHead({
     htmlAttrs: {
       class: computed(() => isDark.value ? 'dark' : 'light')
@@ -12,21 +13,12 @@ export const useTheme = () => {
 
   const toggleTheme = () => {
     isDark.value = !isDark.value;
-    if (process.client) {
-      localStorage.setItem('theme', isDark.value ? 'dark' : 'light');
-    }
+    // We are no longer saving to localStorage as per request
   };
 
   const initTheme = () => {
-    if (process.client) {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        isDark.value = savedTheme === 'dark';
-      } else {
-        // Default to dark if no preference is saved
-        isDark.value = true;
-      }
-    }
+    // Reset to Dark Mode every time the app initializes/refreshes
+    isDark.value = true;
   };
 
   return {
