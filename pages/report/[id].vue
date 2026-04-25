@@ -1,7 +1,7 @@
 <template>
   <div class="fade-in-up" v-if="report">
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-margin gap-4">
-      <NuxtLink to="/" class="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-surface-tint font-label-caps text-[10px] md:text-label-caps hover:bg-surface-tint hover:text-background transition-all shadow-[0_0_15px_rgba(0,219,233,0.1)] hover:shadow-[0_0_30px_rgba(0,219,233,0.3)] min-h-[44px]">
+      <NuxtLink to="/dashboard" class="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-surface-tint font-label-caps text-[10px] md:text-label-caps hover:bg-surface-tint hover:text-background transition-all shadow-[0_0_15px_rgba(0,219,233,0.1)] hover:shadow-[0_0_30px_rgba(0,219,233,0.3)] min-h-[44px]">
         <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Dashboard
       </NuxtLink>
       <button @click="printReport" class="flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-surface-tint text-background font-label-caps text-[10px] md:text-label-caps shadow-[0_0_20px_rgba(0,219,233,0.3)] hover:shadow-[0_0_40px_rgba(0,219,233,0.5)] transition-all min-h-[44px]">
@@ -54,7 +54,7 @@
           <div class="text-outline font-label-caps text-[10px] tracking-[0.3em] mb-4 uppercase">Risk Index</div>
           <div class="relative w-32 h-32 flex items-center justify-center">
             <svg class="w-full h-full transform -rotate-90">
-              <circle class="text-outline-variant/20 dark:text-white/5" stroke="currentColor" stroke-width="8" fill="transparent" r="58" cx="64" cy="64"/>
+              <circle class="text-outline-variant/20" stroke="currentColor" stroke-width="8" fill="transparent" r="58" cx="64" cy="64"/>
               <circle :class="getRiskColorClass(report.overallScore, 'text')" stroke="currentColor" stroke-width="8" :stroke-dasharray="2 * Math.PI * 58" :stroke-dashoffset="2 * Math.PI * 58 * (1 - report.overallScore / 100)" stroke-linecap="round" fill="transparent" r="58" cx="64" cy="64" class="transition-all duration-1000 ease-out"/>
             </svg>
             <div class="absolute flex flex-col items-center">
@@ -81,7 +81,7 @@
               </span>
               Risk Vector Analysis
             </h3>
-            <div class="flex items-center gap-2 text-[10px] font-label-caps text-outline bg-white/5 px-3 py-1 rounded-full">
+            <div class="flex items-center gap-2 text-[10px] font-label-caps text-outline bg-surface-variant/30 dark:bg-white/5 px-3 py-1 rounded-full border border-outline-variant/10">
               <span class="w-2 h-2 rounded-full bg-surface-tint animate-pulse"></span> LIVE PROFILE
             </div>
           </div>
@@ -112,18 +112,18 @@
                 <span class="font-label-caps text-[10px] tracking-widest text-outline uppercase">AI Certainty Index</span>
                 <span class="font-data-mono text-sm text-surface-tint">{{ report.confidenceScore }}%</span>
               </div>
-              <div class="h-3 w-full bg-white/5 rounded-full overflow-hidden p-0.5 border border-white/5">
+              <div class="h-3 w-full bg-surface-variant/30 dark:bg-white/5 rounded-full overflow-hidden p-0.5 border border-outline-variant/20 dark:border-white/5">
                 <div class="h-full bg-gradient-to-r from-surface-tint to-primary rounded-full shadow-[0_0_15px_rgba(0,219,233,0.5)] transition-all duration-1000" :style="{ width: report.confidenceScore + '%' }"></div>
               </div>
             </div>
 
             <!-- Profile Details -->
             <div class="grid grid-cols-2 gap-4">
-              <div class="p-4 rounded-xl bg-white/5 border border-white/5 space-y-2">
+              <div class="p-4 rounded-xl bg-surface-variant/20 dark:bg-white/5 border border-outline-variant/20 dark:border-white/5 space-y-2">
                 <span class="text-[9px] font-label-caps text-outline tracking-wider uppercase">Intent Level</span>
                 <p class="text-on-surface font-medium">{{ report.overallScore > 70 ? 'Hostile / Targeted' : 'Opportunistic' }}</p>
               </div>
-              <div class="p-4 rounded-xl bg-white/5 border border-white/5 space-y-2">
+              <div class="p-4 rounded-xl bg-surface-variant/20 dark:bg-white/5 border border-outline-variant/20 dark:border-white/5 space-y-2">
                 <span class="text-[9px] font-label-caps text-outline tracking-wider uppercase">Capability</span>
                 <p class="text-on-surface font-medium">{{ report.overallScore > 60 ? 'Advanced / Persistent' : 'Moderate' }}</p>
               </div>
@@ -131,9 +131,9 @@
 
             <!-- Threat Vectors List -->
             <div class="space-y-4">
-              <span class="text-[10px] font-label-caps text-outline tracking-widest uppercase block border-b border-white/5 pb-2">Primary Attack Vectors</span>
+              <span class="text-[10px] font-label-caps text-outline tracking-widest uppercase block border-b border-outline-variant/10 dark:border-white/5 pb-2">Primary Attack Vectors</span>
               <div class="space-y-3">
-                <div v-for="(cat, score) in report.categoryScores" :key="cat" v-show="score > 50" class="flex items-center justify-between p-3 rounded-lg bg-surface-tint/5 border-l-2 border-surface-tint">
+                <div v-for="(score, cat) in report.categoryScores" :key="cat" v-show="score > 50" class="flex items-center justify-between p-3 rounded-lg bg-surface-tint/5 border-l-2 border-surface-tint">
                   <span class="text-xs font-medium text-on-surface capitalize">{{ cat }}</span>
                   <span class="text-[10px] font-data-mono text-surface-tint">{{ score }} PTS</span>
                 </div>
@@ -155,7 +155,7 @@
           Critical Findings
          </h3>
         <div class="space-y-4">
-          <div v-for="(finding, index) in report.findings" :key="index" class="group flex gap-5 p-6 rounded-2xl bg-white/[0.03] border border-white/5 hover:border-surface-tint/30 hover:bg-white/[0.05] transition-all">
+          <div v-for="(finding, index) in report.findings" :key="index" class="group flex gap-5 p-6 rounded-2xl bg-surface-variant/10 dark:bg-white/[0.03] border border-outline-variant/10 dark:border-white/5 hover:border-surface-tint/30 hover:bg-surface-variant/20 dark:hover:bg-white/[0.05] transition-all">
             <div class="w-10 h-10 rounded-full bg-surface-tint/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
               <span class="material-symbols-outlined text-surface-tint text-xl">priority_high</span>
             </div>
@@ -176,7 +176,7 @@
           Remediation Roadmap
         </h3>
         <div class="space-y-4">
-          <div v-for="(rec, index) in report.recommendations" :key="index" class="group flex gap-5 p-6 rounded-2xl bg-secondary-container/5 border border-white/5 hover:border-secondary-container/30 hover:bg-secondary-container/10 transition-all">
+          <div v-for="(rec, index) in report.recommendations" :key="index" class="group flex gap-5 p-6 rounded-2xl bg-secondary-container/5 border border-outline-variant/10 dark:border-white/5 hover:border-secondary-container/30 hover:bg-secondary-container/10 transition-all">
             <div class="w-10 h-10 rounded-full bg-secondary-container/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
               <span class="material-symbols-outlined text-secondary-container text-xl">task_alt</span>
             </div>
@@ -189,8 +189,7 @@
       </div>
     </div>
 
-    <!-- Export Controls -->
-    <div class="flex items-center justify-center pt-8 border-t border-white/5">
+    <div class="flex items-center justify-center pt-8 border-t border-outline-variant/20 dark:border-white/5">
        <button @click="printReport" class="flex items-center gap-3 px-8 py-4 rounded-xl bg-surface-tint text-background font-label-caps tracking-widest hover:brightness-110 transition-all shadow-2xl hover:shadow-surface-tint/40">
          <span class="material-symbols-outlined">download</span> DOWNLOAD FULL PDF DOSSIER
        </button>
@@ -238,9 +237,11 @@ const report = ref(null);
 const error = ref(null);
 
 const fetchReport = async () => {
+    const config = useRuntimeConfig();
     try {
-        // ✅ FIXED: Use deployed backend URL instead of localhost
-        const response = await fetch(`https://riskanalyzer-backend.onrender.com/api/reports/${route.params.id}`);
+        const response = await fetch(`${config.public.apiBase}/reports/${route.params.id}`, {
+            credentials: 'include'
+        });
         
         if (!response.ok) {
             if (response.status === 404) {

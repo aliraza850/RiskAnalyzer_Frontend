@@ -222,14 +222,16 @@ const handleDrop = (event) => {
 
 const submitAnalysis = async () => {
     isAnalyzing.value = true;
+    const config = useRuntimeConfig();
     try {
         let response;
-        const apiUrl = 'https://riskanalyzer-backend.onrender.com/api';
+        const apiUrl = config.public.apiBase;
         
         if (activeTab.value === 'text') {
             response = await fetch(`${apiUrl}/analyze/text`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
                 body: JSON.stringify({
                     title: form.value.title || 'Untitled Assessment',
                     text: form.value.text,
@@ -237,10 +239,11 @@ const submitAnalysis = async () => {
             });
         } else {
              const formData = new FormData();
-             formData.append('file', selectedFile.value);
+             formData.append('document', selectedFile.value); // Backend uses 'document' field
              formData.append('title', form.value.title || 'Untitled File Report');
-             response = await fetch(`${apiUrl}/analyze/file`, {
+             response = await fetch(`${apiUrl}/analyze`, { // Backend uses /api/analyze for file upload
                 method: 'POST',
+                credentials: 'include',
                 body: formData
              });
         }
@@ -256,8 +259,8 @@ const submitAnalysis = async () => {
         const reportId = data.report?._id || data._id;
         console.log('Analysis successful, Report ID:', reportId);
         
-        // Navigate to home page to see the new report in the list
-        router.push('/');
+        // Navigate to dashboard page to see the new report in the list
+        router.push('/dashboard');
         
     } catch (error) {
         console.error('Analysis error:', error);

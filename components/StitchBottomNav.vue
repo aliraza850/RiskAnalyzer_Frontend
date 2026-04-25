@@ -1,11 +1,11 @@
 <template>
   <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-[#111827]/80 dark:bg-[#0d1117]/80 backdrop-blur-md border-t border-white/10 px-6 py-3 flex justify-around items-center">
     <NuxtLink 
-      to="/" 
+      to="/dashboard" 
       class="flex flex-col items-center gap-1 transition-all"
-      :class="[route.path === '/' ? 'text-cyan-500' : 'text-slate-500']"
+      :class="[route.path === '/dashboard' ? 'text-cyan-500' : 'text-slate-500']"
     >
-      <span class="material-symbols-outlined text-2xl" :style="route.path === '/' ? 'font-variation-settings: \'FILL\' 1;' : ''">dashboard</span>
+      <span class="material-symbols-outlined text-2xl" :style="route.path === '/dashboard' ? 'font-variation-settings: \'FILL\' 1;' : ''">dashboard</span>
       <span class="text-[10px] font-bold uppercase tracking-widest">Dashboard</span>
     </NuxtLink>
 
@@ -22,7 +22,7 @@
     </NuxtLink>
 
     <NuxtLink 
-      to="/" 
+      to="/dashboard" 
       class="flex flex-col items-center gap-1 transition-all"
       :class="[route.path.startsWith('/report') ? 'text-cyan-500' : 'text-slate-500']"
     >

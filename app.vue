@@ -6,20 +6,27 @@
     <div class="fixed inset-0 z-0 pointer-events-none transition-all duration-500" :class="isDark ? 'opacity-20' : 'opacity-60 mix-blend-multiply'" :style="{ backgroundImage: 'var(--bg-image)', backgroundSize: 'cover', backgroundPosition: 'center' }"></div>
 
     <div class="flex-1 flex flex-col relative z-10">
-      <StitchTopNav />
+      <StitchTopNav v-if="!isLanding" />
       
-      <main class="flex-1 mt-20 p-6 md:p-margin h-[calc(100vh-80px)] pb-32 md:pb-margin overflow-y-auto custom-scrollbar">
+      <main 
+        class="flex-1 overflow-y-auto custom-scrollbar"
+        :class="[!isLanding ? 'mt-20 p-6 md:p-margin h-[calc(100vh-80px)] pb-32 md:pb-margin' : '']"
+      >
         <NuxtPage />
       </main>
 
-      <StitchBottomNav />
+      <StitchBottomNav v-if="!isLanding" />
     </div>
   </div>
 </template>
 
 <script setup>
-// Layout components are auto-imported in Nuxt 3
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
 const isDark = useState('isDark', () => true);
+const isLanding = computed(() => route.path === '/');
 </script>
 
 <style>
