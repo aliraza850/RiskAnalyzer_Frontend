@@ -5,7 +5,7 @@
       <h1 class="text-3xl font-headline-xl text-white">Command Center</h1>
       <div v-if="!loading">
         <p class="text-on-primary-container font-body-md mt-1">
-          Welcome back, <span class="text-surface-tint font-bold">{{ user.email }}</span>. Reviewing {{ reports.length }} active risk assessments.
+          Welcome back, <span class="text-surface-tint font-bold capitalize">{{ user.email.split('@')[0].replace(/[\._-]/g, ' ') }}</span>. Reviewing {{ reports.length }} active risk assessments.
         </p>
       </div>
       <div v-else class="flex items-center gap-2 mt-1">
