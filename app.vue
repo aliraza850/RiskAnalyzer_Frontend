@@ -21,12 +21,19 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { useAuth } from '~/composables/useAuth';
 
 const route = useRoute();
-const isDark = useState('isDark', () => true);
+const { checkAuth } = useAuth();
+const { isDark, initTheme } = useTheme();
 const isLanding = computed(() => route.path === '/');
+
+onMounted(() => {
+  initTheme();
+  checkAuth();
+});
 </script>
 
 <style>

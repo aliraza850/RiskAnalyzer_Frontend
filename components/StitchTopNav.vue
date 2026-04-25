@@ -152,47 +152,19 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useAuth } from '~/composables/useAuth';
 
 const route = useRoute();
 const { user, logout } = useAuth();
+const { isDark, toggleTheme } = useTheme();
 
-const isDark = useState('isDark', () => true);
 const isMenuOpen = ref(false);
-
-const toggleTheme = () => {
-  isDark.value = !isDark.value;
-  updateTheme();
-};
 
 const handleLogout = async () => {
   isMenuOpen.value = false;
   await logout();
 };
-
-const updateTheme = () => {
-  if (!process.client) return;
-  if (isDark.value) {
-    document.documentElement.classList.add('dark');
-    localStorage.setItem('theme', 'dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-    localStorage.setItem('theme', 'light');
-  }
-};
-
-onMounted(() => {
-  if (process.client) {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      isDark.value = savedTheme === 'dark';
-    } else {
-      isDark.value = true;
-    }
-    updateTheme();
-  }
-});
 </script>
 
 <style scoped>

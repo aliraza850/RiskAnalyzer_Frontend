@@ -1,36 +1,48 @@
-import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 export const useAuth = () => {
-  const user = ref(null);
-  const loading = ref(true);
+  // Use unique keys for globally shared state
+  const user = useState('auth_user', () => null);
+  const loading = useState('auth_loading', () => true);
+  const initialized = useState('auth_initialized', () => false);
+  
   const router = useRouter();
   const config = useRuntimeConfig();
   const apiBase = config.public.apiBase;
 
-  const checkAuth = async () => {
+  const checkAuth = async (force = false) => {
+    if (initialized.value && !force) return;
+    
     loading.value = true;
     try {
-      // First check localStorage for immediate UI feedback
-      const localUser = localStorage.getItem('user');
-      if (localUser) {
-        user.value = JSON.parse(localUser);
+      // 1. Initial check from localStorage (immediate UI response)
+      if (process.client) {
+        const localUser = localStorage.getItem('user');
+        if (localUser && !user.value) {
+          user.value = JSON.parse(localUser);
+        }
       }
 
-      // Then verify with backend (session cookie)
+      // 2. Verified check from API
       const response = await fetch(`${apiBase}/auth/me`, {
         credentials: 'include'
       });
+      
       if (response.ok) {
         const data = await response.json();
         user.value = data.user;
-        localStorage.setItem('user', JSON.stringify(data.user));
+        if (process.client) {
+          localStorage.setItem('user', JSON.stringify(data.user));
+        }
       } else {
         user.value = null;
-        localStorage.removeItem('user');
+        if (process.client) {
+          localStorage.removeItem('user');
+        }
       }
+      initialized.value = true;
     } catch (error) {
-      console.error('Auth check failed:', error);
+      console.error('Auth verification failed:', error);
     } finally {
       loading.value = false;
     }
@@ -43,7 +55,9 @@ export const useAuth = () => {
         credentials: 'include'
       });
       user.value = null;
-      localStorage.removeItem('user');
+      if (process.client) {
+        localStorage.removeItem('user');
+      }
       router.push('/');
     } catch (error) {
       console.error('Logout failed:', error);
@@ -53,6 +67,7 @@ export const useAuth = () => {
   return {
     user,
     loading,
+    initialized,
     checkAuth,
     logout
   };
