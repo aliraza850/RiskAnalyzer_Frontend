@@ -12,21 +12,33 @@
         <span class="material-symbols-outlined">close</span>
       </button>
 
-      <div v-if="!linkSent" class="space-y-6">
+      <div class="space-y-6">
         <div class="text-center">
           <h2 class="font-headline-md text-headline-md text-white mb-2">Access Intelligence</h2>
-          <p class="text-body-sm text-on-primary-container">Enter your email to receive a magic login link.</p>
+          <p class="text-body-sm text-on-primary-container">Initialize secure session to Command Center.</p>
         </div>
 
-        <form @submit.prevent="requestLink" class="space-y-4">
-          <div>
-            <label for="email" class="block text-label-md text-primary mb-2">CORPORATE EMAIL</label>
+        <form @submit.prevent="handleLogin" class="space-y-4">
+          <div class="space-y-1 group">
+            <label for="email" class="block text-label-md text-primary mb-1 uppercase tracking-widest opacity-70 group-focus-within:opacity-100 transition-opacity">COGNITIVE IDENTITY (EMAIL)</label>
             <input 
               v-model="email" 
               type="email" 
               id="email" 
               required 
-              placeholder="name@company.com"
+              placeholder="name@intelligence.ai"
+              class="w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-3 text-white placeholder:text-on-primary-container/40 focus:outline-none focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed transition-all"
+            >
+          </div>
+
+          <div class="space-y-1 group">
+            <label for="password" class="block text-label-md text-primary mb-1 uppercase tracking-widest opacity-70 group-focus-within:opacity-100 transition-opacity">ACCESS TOKEN (PASSWORD)</label>
+            <input 
+              v-model="password" 
+              type="password" 
+              id="password" 
+              required 
+              placeholder="••••••••"
               class="w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-3 text-white placeholder:text-on-primary-container/40 focus:outline-none focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed transition-all"
             >
           </div>
@@ -34,39 +46,25 @@
           <button 
             type="submit" 
             :disabled="loading"
-            class="w-full bg-secondary-fixed text-on-secondary-fixed font-headline-md py-4 rounded-xl hover:bg-secondary-fixed-dim transition-all shadow-lg shadow-secondary-fixed/20 flex items-center justify-center gap-2"
+            class="group relative w-full bg-secondary-fixed text-on-secondary-fixed font-headline-md py-4 rounded-xl hover:bg-secondary-fixed-dim transition-all shadow-lg shadow-secondary-fixed/20 flex items-center justify-center gap-2 overflow-hidden mt-6"
           >
+            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             <span v-if="loading" class="material-symbols-outlined animate-spin">progress_activity</span>
-            <span v-else>Send Magic Link</span>
+            <span v-else class="flex items-center gap-2">
+              INITIATE LOGIN <span class="material-symbols-outlined text-sm">bolt</span>
+            </span>
           </button>
         </form>
 
-        <p v-if="error" class="text-error text-center text-body-sm bg-error-container/10 py-2 rounded-lg border border-error/20">
+        <p v-if="error" class="text-error text-center text-body-sm bg-error-container/10 py-2 rounded-lg border border-error/20 animate-pulse">
           {{ error }}
         </p>
 
         <div class="pt-4 border-t border-white/5 text-center">
-          <p class="text-label-md text-on-primary-container">
-            SECURED BY ZERO-TRUST ARCHITECTURE
+          <p class="text-label-md text-on-primary-container tracking-[0.2em] text-[10px]">
+            SECURED BY ZERO-TRUST NEURAL ARCHITECTURE
           </p>
         </div>
-      </div>
-
-      <!-- Success State -->
-      <div v-else class="text-center space-y-6 py-4">
-        <div class="w-16 h-16 bg-secondary-fixed/10 border border-secondary-fixed/30 rounded-full flex items-center justify-center mx-auto mb-4">
-          <span class="material-symbols-outlined text-secondary-fixed text-3xl">mail</span>
-        </div>
-        <h2 class="font-headline-md text-headline-md text-white">Check Your Inbox</h2>
-        <p class="text-body-md text-on-primary-container">
-          We've sent a magic login link to <br><span class="text-white font-medium">{{ email }}</span>.
-        </p>
-        <p class="text-body-sm text-on-primary-container italic">
-          The link will expire in 15 minutes.
-        </p>
-        <button @click="linkSent = false" class="text-secondary-fixed hover:underline text-label-md">
-          Back to login
-        </button>
       </div>
     </div>
   </div>
@@ -74,34 +72,48 @@
 
 <script setup>
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuth } from '~/composables/useAuth';
 
 const emit = defineEmits(['close']);
+const router = useRouter();
+const { checkAuth } = useAuth();
 
 const email = ref('');
+const password = ref('');
 const loading = ref(false);
-const linkSent = ref(false);
 const error = ref('');
 
-const requestLink = async () => {
+const handleLogin = async () => {
   loading.value = true;
   error.value = '';
   const config = useRuntimeConfig();
   
   try {
-    const response = await fetch(`${config.public.apiBase}/auth/request-link`, {
+    const response = await fetch(`${config.public.apiBase}/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: email.value })
+      credentials: 'include',
+      body: JSON.stringify({ 
+        email: email.value,
+        password: password.value
+      })
     });
 
     if (response.ok) {
-      linkSent.value = true;
+      const data = await response.json();
+      // Update global auth state
+      localStorage.setItem('user', JSON.stringify(data.user));
+      await checkAuth();
+      
+      emit('close');
+      router.push('/dashboard');
     } else {
       const data = await response.json();
-      error.value = data.error || 'Failed to send link. Please try again.';
+      error.value = data.error || 'Authentication failed. Access denied.';
     }
   } catch (err) {
-    error.value = 'Connection error. Is the backend running?';
+    error.value = 'Neural link failure. Check system connectivity.';
   } finally {
     loading.value = false;
   }
@@ -113,6 +125,7 @@ const requestLink = async () => {
   background: rgba(15, 23, 42, 0.9);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 50px rgba(125, 244, 255, 0.1);
 }
 .animate-fade-in {
   animation: fadeIn 0.3s ease-out;
@@ -134,5 +147,5 @@ const requestLink = async () => {
 .bg-error-container { background-color: #93000a; }
 .text-primary { color: #b9c7e4; }
 .font-headline-md { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 500; }
-.text-label-md { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+.text-label-md { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; }
 </style>
