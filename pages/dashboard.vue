@@ -29,12 +29,15 @@
 import { ref, onMounted, computed } from 'vue';
 import { useAuth } from '~/composables/useAuth';
 
-const { user } = useAuth();
+const { user, initialized } = useAuth();
 const reports = ref([]);
 const loading = ref(true);
 const config = useRuntimeConfig();
 
 const getReports = async () => {
+  if (!user.value) return;
+  
+  loading.value = true;
   try {
     const response = await fetch(`${config.public.apiBase}/reports`, {
       credentials: 'include'
@@ -42,24 +45,28 @@ const getReports = async () => {
     
     if (response.ok) {
       const data = await response.json();
-      // Handle both response formats (direct array or { reports: [] })
       reports.value = Array.isArray(data) ? data : (data.reports || []);
-      console.log('Reports loaded:', reports.value.length);
     } else {
-      console.error('Failed to fetch reports:', response.status);
       reports.value = [];
     }
   } catch (error) {
-    console.error('Failed to fetch reports:', error);
     reports.value = [];
   } finally {
     loading.value = false;
   }
 };
 
-// Refresh reports when component mounts
+// React to user status changes
+watch(user, (newUser) => {
+  if (newUser) {
+    getReports();
+  }
+}, { immediate: true });
+
 onMounted(() => {
-  getReports();
+  if (user.value) {
+    getReports();
+  }
 });
 
 // Computed stats
