@@ -1,4 +1,4 @@
-import { ref, onMounted, computed, watch } from 'vue';
+import { ref, onMounted, computed, watch, nextTick } from 'vue';
 import { useAuth, useRuntimeConfig } from '#imports';
 
 export default {
@@ -44,15 +44,27 @@ export default {
       }
     };
 
-    // React to user status changes
-    watch(user, (newUser) => {
-      if (newUser && !reports.value.length) {
-        getReports();
-      }
-    }, { immediate: true });
+    // Watch user — fires when user becomes available (login, or page nav with pre-set state)
+    watch(
+      user,
+      async (newUser, oldUser) => {
+        // Only fetch if user just became available, or on initial render with a user
+        if (newUser && newUser !== oldUser) {
+          await nextTick();
+          getReports();
+        } else if (newUser && !reports.value.length) {
+          // Initial render where user is already set
+          await nextTick();
+          getReports();
+        }
+      },
+      { immediate: true }
+    );
 
-    onMounted(() => {
-      if (user.value) {
+    onMounted(async () => {
+      // Guarantee a fetch on mount regardless of watch timing
+      if (user.value && !reports.value.length) {
+        await nextTick();
         getReports();
       }
     });

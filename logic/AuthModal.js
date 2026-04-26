@@ -5,7 +5,7 @@ export default {
   emits: ['close'],
   setup(props, { emit }) {
     const router = useRouter();
-    const { checkAuth } = useAuth();
+    const { checkAuth, user } = useAuth();
 
     const email = ref('');
     const password = ref('');
@@ -30,8 +30,11 @@ export default {
 
         if (response.ok) {
           const data = await response.json();
+          // Directly set user state so dashboard sees it immediately
+          user.value = data.user;
           localStorage.setItem('user', JSON.stringify(data.user));
-          await checkAuth();
+          // Force re-verify with server
+          await checkAuth(true);
           
           emit('close');
           router.push('/dashboard');

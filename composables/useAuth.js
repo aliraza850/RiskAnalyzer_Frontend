@@ -1,33 +1,42 @@
 import { useRouter, useRuntimeConfig } from '#imports';
 
 export const useAuth = () => {
-  // Use unique keys for globally shared state
+  // Globally shared state via Nuxt useState
   const user = useState('auth_user', () => null);
   const loading = useState('auth_loading', () => true);
   const initialized = useState('auth_initialized', () => false);
-  
+
   const router = useRouter();
   const config = useRuntimeConfig();
   const apiBase = config.public.apiBase;
 
-  const checkAuth = async (force = false) => {
-    if (initialized.value && !force) return;
-    
-    loading.value = true;
-    try {
-      // 1. Initial check from localStorage (immediate UI response)
-      if (process.client) {
-        const localUser = localStorage.getItem('user');
-        if (localUser && !user.value) {
+  // Hydrate user from localStorage instantly — always, no guard
+  const hydrateFromStorage = () => {
+    if (process.client && !user.value) {
+      const localUser = localStorage.getItem('user');
+      if (localUser) {
+        try {
           user.value = JSON.parse(localUser);
+        } catch {
+          localStorage.removeItem('user');
         }
       }
+    }
+  };
 
-      // 2. Verified check from API
+  const checkAuth = async (force = false) => {
+    // Always try to hydrate from localStorage first (instant UI)
+    hydrateFromStorage();
+
+    // Skip API call if already initialized and not forced
+    if (initialized.value && !force) return;
+
+    loading.value = true;
+    try {
       const response = await fetch(`${apiBase}/auth/me`, {
         credentials: 'include'
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         user.value = data.user;
@@ -43,6 +52,7 @@ export const useAuth = () => {
       initialized.value = true;
     } catch (error) {
       console.error('Auth verification failed:', error);
+      // Keep the localStorage-hydrated user on network failure
     } finally {
       loading.value = false;
     }
@@ -50,17 +60,19 @@ export const useAuth = () => {
 
   const logout = async () => {
     try {
-      await fetch(`${apiBase}/auth/logout`, { 
+      await fetch(`${apiBase}/auth/logout`, {
         method: 'POST',
         credentials: 'include'
       });
+    } catch (error) {
+      console.error('Logout failed:', error);
+    } finally {
       user.value = null;
+      initialized.value = false;
       if (process.client) {
         localStorage.removeItem('user');
       }
       router.push('/');
-    } catch (error) {
-      console.error('Logout failed:', error);
     }
   };
 
@@ -69,6 +81,7 @@ export const useAuth = () => {
     loading,
     initialized,
     checkAuth,
+    hydrateFromStorage,
     logout
   };
 };
