@@ -3,6 +3,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [],
+  
+  components: {
+    dirs: [
+      {
+        path: '~/components',
+        extensions: ['.vue']
+      }
+    ]
+  },
 
   css: ['~/assets/css/main.css'],
 

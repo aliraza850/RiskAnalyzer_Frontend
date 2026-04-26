@@ -15,6 +15,7 @@ type LazyComponent<T> = DefineComponent<HydrationStrategies, {}, {}, {}, {}, {},
 
 
 export const AnimatedBackground: typeof import("../components/AnimatedBackground.vue")['default']
+export const AuthModal: typeof import("../components/AuthModal.vue")['default']
 export const StitchBottomNav: typeof import("../components/StitchBottomNav.vue")['default']
 export const StitchCriticalRisks: typeof import("../components/StitchCriticalRisks.vue")['default']
 export const StitchRecentReports: typeof import("../components/StitchRecentReports.vue")['default']
@@ -46,6 +47,7 @@ export const Html: typeof import("../node_modules/nuxt/dist/head/runtime/compone
 export const Body: typeof import("../node_modules/nuxt/dist/head/runtime/components")['Body']
 export const NuxtIsland: typeof import("../node_modules/nuxt/dist/app/components/nuxt-island")['default']
 export const LazyAnimatedBackground: LazyComponent<typeof import("../components/AnimatedBackground.vue")['default']>
+export const LazyAuthModal: LazyComponent<typeof import("../components/AuthModal.vue")['default']>
 export const LazyStitchBottomNav: LazyComponent<typeof import("../components/StitchBottomNav.vue")['default']>
 export const LazyStitchCriticalRisks: LazyComponent<typeof import("../components/StitchCriticalRisks.vue")['default']>
 export const LazyStitchRecentReports: LazyComponent<typeof import("../components/StitchRecentReports.vue")['default']>
