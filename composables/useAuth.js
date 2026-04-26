@@ -1,4 +1,4 @@
-import { useRouter } from 'vue-router';
+import { useRouter, useRuntimeConfig } from '#imports';
 
 export const useAuth = () => {
   // Use unique keys for globally shared state

@@ -1,15 +1,25 @@
 <template>
-  <div class="stat-card risk-score-card">
-    <div class="card-header">
-      <h3 class="card-title">Aggregated Risk Velocity</h3>
-      <span class="material-symbols-outlined icon">speed</span>
-    </div>
-    <div class="score-display">
-      <div class="score-value">{{ score }}</div>
-      <div class="score-label">Global Index</div>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-fill" :style="{ width: score + '%' }"></div>
+  <div class="risk-score-card stat-card glass-panel">
+    <div class="hover-overlay"></div>
+    <p class="card-label">Aggregated Risk Velocity</p>
+    <div class="chart-container">
+      <svg class="chart-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle class="chart-bg" cx="60" cy="60" r="54" stroke="currentColor" stroke-width="8" fill="none" />
+        <circle 
+          class="chart-fill"
+          cx="60" cy="60" r="54"
+          stroke="currentColor"
+          stroke-width="8"
+          fill="none"
+          stroke-linecap="round"
+          :stroke-dasharray="339.3"
+          :stroke-dashoffset="339.3 - (339.3 * score / 100)"
+        />
+      </svg>
+      <div class="score-display">
+        <span class="score-value">{{ score }}</span>
+        <span class="score-max">/100</span>
+      </div>
     </div>
   </div>
 </template>

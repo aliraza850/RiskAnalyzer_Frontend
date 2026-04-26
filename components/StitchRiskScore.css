@@ -1,3 +1,8 @@
+.stat-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
 .risk-score-card {
   grid-column: span 1;
   padding: 1.5rem;

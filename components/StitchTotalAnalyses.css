@@ -1,3 +1,25 @@
+.stat-card {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.card-label {
+  font-size: 10px;
+  color: var(--color-outline);
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+}
+
+.card-sublabel {
+  font-size: 0.75rem;
+  color: var(--color-outline);
+  margin-top: 0.25rem;
+  opacity: 0.8;
+}
+
 .total-analyses-card {
   grid-column: span 1;
   padding: 1.5rem;

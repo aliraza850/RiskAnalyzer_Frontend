@@ -63,7 +63,11 @@ export default {
             const reportId = data.report?._id || data._id;
             console.log('Analysis successful, Report ID:', reportId);
             
-            router.push('/dashboard');
+            if (reportId) {
+              router.push(`/report/${reportId}`);
+            } else {
+              router.push('/dashboard');
+            }
             
         } catch (error) {
             console.error('Analysis error:', error);
