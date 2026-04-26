@@ -1,45 +1,38 @@
 <template>
-  <div class="landing-page bg-surface text-on-surface font-body-md min-h-screen flex flex-col selection:bg-secondary-fixed selection:text-on-secondary overflow-x-hidden">
-    <main class="flex-grow">
+  <div class="landing-page">
+    <main style="flex-grow: 1;">
       <!-- Hero Section -->
-      <section class="relative pt-xl pb-xl overflow-hidden px-6">
-        <!-- Background Decoration -->
-        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <div class="absolute top-0 left-1/4 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-[120px]"></div>
-          <div class="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-on-tertiary-container/5 rounded-full blur-[100px]"></div>
-          <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px;"></div>
+      <section class="hero-section">
+        <div class="hero-bg-decoration">
+          <div class="blob-1"></div>
+          <div class="blob-2"></div>
         </div>
 
-        <div class="max-w-7xl mx-auto relative z-10">
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-xl items-center">
+        <div class="hero-content">
+          <div class="hero-grid">
             <!-- Hero Content -->
-            <div class="lg:col-span-7 space-y-md">
-              <div class="inline-flex items-center gap-2 bg-primary-container border border-white/5 px-4 py-2 rounded-full mb-md">
-                <span class="w-2 h-2 rounded-full bg-secondary-fixed-dim animate-pulse"></span>
-                <span class="text-label-md font-label-md text-primary tracking-widest">GEMINI AI INTEGRATED</span>
+            <div class="hero-text-block">
+              <div class="hero-badge">
+                <span style="width: 8px; height: 8px; border-radius: 9999px; background-color: #00dbe9;" class="animate-pulse"></span>
+                <span style="font-size: 12px; color: #b9c7e4; letter-spacing: 0.1em; font-weight: 600;">GEMINI AI INTEGRATED</span>
               </div>
-              <h1 class="font-headline-xl text-headline-xl text-white leading-none max-w-2xl">
+              <h1 class="hero-title">
                 AI-Powered Risk Intelligence for Smarter Decisions
               </h1>
-              <p class="font-body-lg text-body-lg text-on-primary-container max-w-xl">
+              <p class="hero-subtitle">
                 Analyze business risks in seconds with Gemini AI. Get instant scores, actionable insights, and mitigation strategies.
               </p>
-              <div class="flex flex-wrap gap-4 pt-sm">
-                <button @click="showAuthModal = true" class="bg-secondary-fixed text-on-secondary-fixed font-headline-md px-8 py-4 rounded-xl flex items-center gap-2 group hover:shadow-[0_0_20px_rgba(125,244,255,0.4)] transition-all">
+              <div style="display: flex; flex-wrap: wrap; gap: 1rem; padding-top: 1rem;">
+                <button @click="showAuthModal = true" class="btn-primary">
                   Get Started
-                  <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  <span class="material-symbols-outlined">arrow_forward</span>
                 </button>
-                <button class="border border-outline-variant text-on-surface font-headline-md px-8 py-4 rounded-xl flex items-center gap-2 hover:bg-white/5 transition-all">
+                <button class="btn-outline">
                   <span class="material-symbols-outlined">play_circle</span>
                   Watch Demo
                 </button>
               </div>
               <!-- Trust Metrics -->
-              <div class="pt-lg flex items-center gap-lg border-t border-white/5">
-                <div>
-                  <div class="text-headline-md font-headline-md text-white">99.9%</div>
-                  <div class="text-label-md font-label-md text-on-primary-container uppercase tracking-tighter">Analysis Accuracy</div>
-                </div>
                 <div class="w-px h-10 bg-white/10"></div>
                 <div>
                   <div class="text-headline-md font-headline-md text-white">&lt; 2s</div>

@@ -1,0 +1,115 @@
+.reports-card {
+  padding: 1.5rem;
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 0.75rem;
+}
+
+.view-all-btn {
+  font-size: 10px;
+  color: var(--color-surface-tint);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.view-all-btn:hover {
+  color: #fff;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.reports-table {
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+  min-width: 700px;
+}
+
+.reports-table th {
+  padding: 0.75rem 0;
+  font-size: 10px;
+  color: var(--color-outline);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.reports-table td {
+  padding: 1rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.reports-table tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.report-title-link {
+  color: var(--color-on-surface);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.reports-table tr:hover .report-title-link {
+  color: var(--color-surface-tint);
+}
+
+.risk-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.risk-high {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+.risk-medium {
+  background-color: rgba(234, 179, 8, 0.15);
+  color: #eab308;
+  border-color: rgba(234, 179, 8, 0.3);
+}
+
+.risk-low {
+  background-color: rgba(0, 219, 233, 0.15);
+  color: var(--color-surface-tint);
+  border-color: rgba(0, 219, 233, 0.3);
+}
+
+.confidence-bar {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  height: 0.25rem;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.confidence-fill {
+  background-color: var(--color-surface-tint);
+  height: 100%;
+  box-shadow: 0 0 8px rgba(0, 219, 233, 0.5);
+  transition: width 0.5s;
+}

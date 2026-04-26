@@ -1,50 +1,38 @@
 <template>
-  <header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 md:px-12 h-20 nav-glass">
-    <div class="flex items-center gap-margin flex-1">
-      <NuxtLink :to="user ? '/dashboard' : '/'" class="text-2xl tracking-tighter logo-gradient shrink-0">RiskAnalyzer</NuxtLink>
+  <header class="header nav-glass">
+    <div class="logo-container">
+      <NuxtLink :to="user ? '/dashboard' : '/'" class="logo logo-gradient">RiskAnalyzer</NuxtLink>
       
-      <!-- Search Bar (Stitch Style) - Hidden on Mobile -->
-      <div class="hidden lg:flex flex-1 max-w-md mx-12 items-center bg-surface-variant/30 dark:bg-black/20 border border-outline-variant/30 dark:border-white/10 rounded-full px-4 py-2 shadow-inner transition-all focus-within:border-surface-tint/50 focus-within:bg-surface-variant/50 dark:focus-within:bg-black/40">
-        <span class="material-symbols-outlined text-surface-tint mr-2 text-xl">search</span>
-        <input class="bg-transparent border-none outline-none w-full text-on-surface placeholder-outline font-body-md text-sm" placeholder="Search insights..." type="text"/>
+      <!-- Search Bar -->
+      <div class="search-container">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input class="search-input" placeholder="Search insights..." type="text"/>
       </div>
 
-      <nav class="hidden md:flex gap-4">
+      <nav class="nav-links">
         <NuxtLink 
           to="/dashboard" 
-          class="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-xs uppercase tracking-widest transition-all"
-          :class="[route.path === '/dashboard' ? 'text-surface-tint bg-surface-tint/10 shadow-[inset_0_0_10px_rgba(0,240,255,0.1)] border-b-2 border-surface-tint' : 'text-outline hover:text-surface-tint hover:bg-surface-tint/5']"
+          class="nav-link"
+          :class="{ active: route.path === '/dashboard' }"
         >
-          <span class="material-symbols-outlined text-lg" :style="route.path === '/dashboard' ? 'font-variation-settings: \'FILL\' 1;' : ''">dashboard</span>
+          <span class="material-symbols-outlined" :style="route.path === '/dashboard' ? 'font-variation-settings: \'FILL\' 1;' : ''">dashboard</span>
           <span>Overview</span>
         </NuxtLink>
         <NuxtLink 
           to="/analyze" 
-          class="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-xs uppercase tracking-widest transition-all"
-          :class="[route.path === '/analyze' ? 'text-surface-tint bg-surface-tint/10 shadow-[inset_0_0_10px_rgba(0,240,255,0.1)] border-b-2 border-surface-tint' : 'text-outline hover:text-surface-tint hover:bg-surface-tint/5']"
+          class="nav-link"
+          :class="{ active: route.path === '/analyze' }"
         >
-          <span class="material-symbols-outlined text-lg" :style="route.path === '/analyze' ? 'font-variation-settings: \'FILL\' 1;' : ''">security</span>
+          <span class="material-symbols-outlined" :style="route.path === '/analyze' ? 'font-variation-settings: \'FILL\' 1;' : ''">security</span>
           <span>Threat Actors</span>
         </NuxtLink>
       </nav>
     </div>
     
-    <div class="flex items-center gap-2">
-      <!-- Desktop Only: Theme & Notifications -->
-      <div class="hidden md:flex items-center gap-2">
-        <button 
-          @click="toggleTheme" 
-          class="p-2 rounded-full hover:bg-surface-tint/10 transition-all duration-300 active:scale-95 flex items-center justify-center text-surface-tint"
-          :title="isDark ? 'Switch to Bright Mode' : 'Switch to Dark Mode'"
-        >
-          <span class="material-symbols-outlined text-2xl">
-            {{ isDark ? 'light_mode' : 'dark_mode' }}
-          </span>
-        </button>
-
-        
-        <div v-if="user" class="flex items-center gap-3 ml-2 group cursor-pointer relative">
-          <button @click="handleLogout" class="p-2 rounded-full hover:bg-error/10 text-outline hover:text-error transition-all" title="Logout">
+    <div class="actions-container">
+      <div class="desktop-actions">
+        <div v-if="user" class="flex items-center gap-3">
+          <button @click="handleLogout" class="logout-btn" title="Logout">
             <span class="material-symbols-outlined">logout</span>
           </button>
         </div>

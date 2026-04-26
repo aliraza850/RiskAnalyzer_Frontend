@@ -1,43 +1,36 @@
 <template>
-  <nav class="md:hidden fixed bottom-0 left-0 w-full z-50 bg-[#111827]/80 dark:bg-[#0d1117]/80 backdrop-blur-md border-t border-white/10 px-6 py-3 flex justify-around items-center">
+  <nav class="bottom-nav">
     <NuxtLink 
       to="/dashboard" 
-      class="flex flex-col items-center gap-1 transition-all"
-      :class="[route.path === '/dashboard' ? 'text-cyan-500' : 'text-slate-500']"
+      class="bottom-nav-link"
+      :class="{ active: route.path === '/dashboard' }"
     >
-      <span class="material-symbols-outlined text-2xl" :style="route.path === '/dashboard' ? 'font-variation-settings: \'FILL\' 1;' : ''">dashboard</span>
-      <span class="text-[10px] font-bold uppercase tracking-widest">Dashboard</span>
+      <span class="material-symbols-outlined bottom-nav-icon" :style="route.path === '/dashboard' ? 'font-variation-settings: \'FILL\' 1;' : ''">dashboard</span>
+      <span class="bottom-nav-text">Dashboard</span>
     </NuxtLink>
 
     <NuxtLink 
       to="/analyze" 
-      class="flex flex-col items-center gap-1 transition-all"
-      :class="[route.path === '/analyze' ? 'text-cyan-500' : 'text-slate-500']"
+      class="bottom-nav-link"
+      :class="{ active: route.path === '/analyze' }"
     >
-      <div class="relative">
-        <div class="absolute -inset-2 bg-cyan-500/20 rounded-full blur-md animate-pulse" v-if="route.path === '/analyze'"></div>
-        <span class="material-symbols-outlined text-2xl relative" :style="route.path === '/analyze' ? 'font-variation-settings: \'FILL\' 1;' : ''">security</span>
+      <div style="position: relative;">
+        <div class="glow-background" v-if="route.path === '/analyze'"></div>
+        <span class="material-symbols-outlined bottom-nav-icon" style="position: relative;" :style="route.path === '/analyze' ? 'font-variation-settings: \'FILL\' 1;' : ''">security</span>
       </div>
-      <span class="text-[10px] font-bold uppercase tracking-widest">Analyze</span>
+      <span class="bottom-nav-text">Analyze</span>
     </NuxtLink>
 
     <NuxtLink 
       to="/dashboard" 
-      class="flex flex-col items-center gap-1 transition-all"
-      :class="[route.path.startsWith('/report') ? 'text-cyan-500' : 'text-slate-500']"
+      class="bottom-nav-link"
+      :class="{ active: route.path.startsWith('/report') }"
     >
-      <span class="material-symbols-outlined text-2xl" :style="route.path.startsWith('/report') ? 'font-variation-settings: \'FILL\' 1;' : ''">history</span>
-      <span class="text-[10px] font-bold uppercase tracking-widest">Reports</span>
+      <span class="material-symbols-outlined bottom-nav-icon" :style="route.path.startsWith('/report') ? 'font-variation-settings: \'FILL\' 1;' : ''">history</span>
+      <span class="bottom-nav-text">Reports</span>
     </NuxtLink>
   </nav>
 </template>
 
-<script setup>
-const route = useRoute();
-</script>
-
-<style scoped>
-.router-link-active {
-  @apply text-cyan-500;
-}
-</style>
+<script src="./StitchBottomNav.js"></script>
+<style src="./StitchBottomNav.css" scoped></style>

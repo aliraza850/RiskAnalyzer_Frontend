@@ -193,84 +193,117 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-const activeTab = ref('text');
-const isAnalyzing = ref(false);
-const dragOver = ref(false);
-const selectedFile = ref(null);
-const result = ref(null);
-
-const form = ref({
-  title: '',
-  text: '',
-});
-
-const handleFileSelect = (event) => {
-  selectedFile.value = event.target.files[0];
-};
-
-const handleDrop = (event) => {
-  dragOver.value = false;
-  if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
-    selectedFile.value = event.dataTransfer.files[0];
-  }
-};
-
-const submitAnalysis = async () => {
-    isAnalyzing.value = true;
-    const config = useRuntimeConfig();
-    try {
-        let response;
-        const apiUrl = config.public.apiBase;
-        
-        if (activeTab.value === 'text') {
-            response = await fetch(`${apiUrl}/analyze/text`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({
-                    title: form.value.title || 'Untitled Assessment',
-                    text: form.value.text,
-                })
-            });
-        } else {
-             const formData = new FormData();
-             formData.append('document', selectedFile.value); // Backend uses 'document' field
-             formData.append('title', form.value.title || 'Untitled File Report');
-             response = await fetch(`${apiUrl}/analyze`, { // Backend uses /api/analyze for file upload
-                method: 'POST',
-                credentials: 'include',
-                body: formData
-             });
-        }
-        
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Analysis failed');
-        }
-        
-        const data = await response.json();
-        
-        // Backend returns report object containing _id
-        const reportId = data.report?._id || data._id;
-        console.log('Analysis successful, Report ID:', reportId);
-        
-        // Navigate to dashboard page to see the new report in the list
-        router.push('/dashboard');
-        
-    } catch (error) {
-        console.error('Analysis error:', error);
-        alert(`Analysis Failed: ${error.message}`);
-    } finally {
-        isAnalyzing.value = false;
-    }
-};
-</script>
-
+<script src="./analyze.js"></script>
+<style src="./analyze.css" scoped></style>
 <style scoped>
-/* Page-specific overrides if any */
+.absolute-fill {
+  position: absolute;
+  inset: 0;
+}
+.opacity-0 {
+  opacity: 0;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.file-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: rgba(0, 219, 233, 0.1);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(0, 219, 233, 0.2);
+}
+.file-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+.file-size {
+  font-size: 9px;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.monitor-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.monitor-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background-color: var(--color-outline);
+}
+.monitor-dot.active {
+  background-color: var(--color-surface-tint);
+  animation: pulse 2s infinite;
+  box-shadow: 0 0 10px var(--color-surface-tint);
+}
+.monitor-title {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: var(--color-outline);
+  text-transform: uppercase;
+}
+.monitor-idle {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+.radar-container {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.radar-icon {
+  font-size: 2.25rem;
+  color: var(--color-outline);
+  opacity: 0.4;
+}
+.monitor-active {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+.progress-label {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--color-surface-tint);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.progress-bar {
+  height: 0.375rem;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background-color: var(--color-surface-tint);
+}
+.scan-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-surface-tint);
+  box-shadow: 0 0 15px var(--color-surface-tint);
+  z-index: 20;
+}
 </style>

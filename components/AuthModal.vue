@@ -50,18 +50,18 @@
           >
             <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             <span v-if="loading" class="material-symbols-outlined animate-spin">progress_activity</span>
-            <span v-else class="flex items-center gap-2">
-              INITIATE LOGIN <span class="material-symbols-outlined text-sm">bolt</span>
+            <span v-else style="display: flex; align-items: center; gap: 0.5rem;">
+              INITIATE LOGIN <span class="material-symbols-outlined" style="font-size: 14px;">bolt</span>
             </span>
           </button>
         </form>
 
-        <p v-if="error" class="text-error text-center text-body-sm bg-error-container/10 py-2 rounded-lg border border-error/20 animate-pulse">
+        <p v-if="error" class="error-msg">
           {{ error }}
         </p>
 
-        <div class="pt-4 border-t border-white/5 text-center">
-          <p class="text-label-md text-on-primary-container tracking-[0.2em] text-[10px]">
+        <div style="padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; margin-top: 1.5rem;">
+          <p style="font-size: 10px; color: #74829d; letter-spacing: 0.2em; text-transform: uppercase;">
             SECURED BY ZERO-TRUST NEURAL ARCHITECTURE
           </p>
         </div>
@@ -70,82 +70,5 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useAuth } from '~/composables/useAuth';
-
-const emit = defineEmits(['close']);
-const router = useRouter();
-const { checkAuth } = useAuth();
-
-const email = ref('');
-const password = ref('');
-const loading = ref(false);
-const error = ref('');
-
-const handleLogin = async () => {
-  loading.value = true;
-  error.value = '';
-  const config = useRuntimeConfig();
-  
-  try {
-    const response = await fetch(`${config.public.apiBase}/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ 
-        email: email.value,
-        password: password.value
-      })
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      // Update global auth state
-      localStorage.setItem('user', JSON.stringify(data.user));
-      await checkAuth();
-      
-      emit('close');
-      router.push('/dashboard');
-    } else {
-      const data = await response.json();
-      error.value = data.error || 'Authentication failed. Access denied.';
-    }
-  } catch (err) {
-    error.value = 'Neural link failure. Check system connectivity.';
-  } finally {
-    loading.value = false;
-  }
-};
-</script>
-
-<style scoped>
-.glass-card {
-  background: rgba(15, 23, 42, 0.9);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 50px rgba(125, 244, 255, 0.1);
-}
-.animate-fade-in {
-  animation: fadeIn 0.3s ease-out;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Tokens */
-.bg-surface-container { background-color: #152031; }
-.border-outline-variant { border-color: #44474d; }
-.text-on-primary-container { color: #74829d; }
-.text-secondary-fixed { color: #7df4ff; }
-.bg-secondary-fixed { background-color: #7df4ff; }
-.text-on-secondary-fixed { color: #002022; }
-.bg-secondary-fixed-dim { background-color: #00dbe9; }
-.text-error { color: #ffb4ab; }
-.bg-error-container { background-color: #93000a; }
-.text-primary { color: #b9c7e4; }
-.font-headline-md { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 500; }
-.text-label-md { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; }
-</style>
+<script src="./AuthModal.js"></script>
+<style src="./AuthModal.css" scoped></style>
