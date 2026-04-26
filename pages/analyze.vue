@@ -222,13 +222,16 @@ const submitAnalysis = async () => {
     const formData = new FormData();
     formData.append('title', form.title || 'Untitled Assessment');
     
+    let endpoint = `${config.public.apiBase}/analyze/text`;
+
     if (selectedFile.value) {
-      formData.append('file', selectedFile.value);
+      formData.append('document', selectedFile.value);
+      endpoint = `${config.public.apiBase}/analyze/file`;
     } else {
       formData.append('text', form.text);
     }
 
-    const response = await fetch(`${config.public.apiBase}/reports`, {
+    const response = await fetch(endpoint, {
       method: 'POST',
       body: formData,
       credentials: 'include'

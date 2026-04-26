@@ -27,10 +27,8 @@ export const useAuth = () => {
     }
   };
 
-  // Call it immediately so any component calling useAuth gets hydrated state
-  if (process.client) {
-    hydrateFromStorage();
-  }
+  // Removed immediate execution of hydrateFromStorage here.
+  // We will call it in onMounted within the layout instead to avoid hydration mismatches.
 
   const checkAuth = async (force = false) => {
     // Skip API call if already initialized and not forced

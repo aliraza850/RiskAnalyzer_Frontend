@@ -30,10 +30,12 @@
 
     <div class="actions-container">
       <div class="desktop-actions">
-        <button v-if="user" @click="handleLogout" class="logout-btn" title="Logout">
-          <span class="material-symbols-outlined">logout</span>
-        </button>
-        <NuxtLink v-else to="/" class="signin-btn">SIGN IN</NuxtLink>
+        <ClientOnly>
+          <button v-if="user" @click="handleLogout" class="logout-btn" title="Logout">
+            <span class="material-symbols-outlined">logout</span>
+          </button>
+          <NuxtLink v-else to="/" class="signin-btn">SIGN IN</NuxtLink>
+        </ClientOnly>
       </div>
 
       <button @click="isMenuOpen = true" class="hamburger-btn">
