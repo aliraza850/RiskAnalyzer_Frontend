@@ -1,29 +1,32 @@
 <template>
-  <div class="modal-overlay" @click.self="$emit('close')">
-    <div class="modal-content auth-glass">
-      <button class="close-btn" @click="$emit('close')">
+  <div class="modal-container" @click.self="$emit('close')">
+    <div class="modal-backdrop" @click.self="$emit('close')"></div>
+    <div class="modal-content">
+      <button class="close-modal-btn" @click="$emit('close')">
         <span class="material-symbols-outlined">close</span>
       </button>
 
-      <div class="auth-header">
-        <div class="auth-icon-container">
+      <div style="margin-bottom: 2rem; text-align: center;">
+        <div style="display: inline-flex; justify-content: center; align-items: center; width: 3rem; height: 3rem; background: rgba(125, 244, 255, 0.1); border-radius: 50%; margin-bottom: 1rem; color: #7df4ff;">
           <span class="material-symbols-outlined">security</span>
         </div>
-        <h2 class="auth-title">Neural Access Link</h2>
-        <p class="auth-subtitle">Initialize your secure risk intelligence session</p>
+        <h2 class="form-title">Neural Access Link</h2>
+        <p class="form-subtitle">Initialize your secure risk intelligence session</p>
       </div>
 
-      <form @submit.prevent="handleLogin" class="auth-form">
-        <div v-if="error" class="error-message">
-          <span class="material-symbols-outlined">warning</span>
+      <form @submit.prevent="handleLogin">
+        <div v-if="error" class="error-msg">
+          <span class="material-symbols-outlined" style="vertical-align: middle; font-size: 1.1rem;">warning</span>
           {{ error }}
         </div>
 
-        <div class="input-group">
-          <label>INTELLIGENCE IDENTIFIER</label>
-          <div class="input-wrapper">
-            <span class="material-symbols-outlined input-icon">alternate_email</span>
+        <div class="auth-form-group">
+          <label class="auth-label">INTELLIGENCE IDENTIFIER</label>
+          <div style="position: relative;">
+            <span class="material-symbols-outlined" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #74829d; font-size: 1.25rem;">alternate_email</span>
             <input 
+              class="auth-input"
+              style="padding-left: 2.75rem;"
               v-model="email" 
               type="email" 
               placeholder="operator@riskanalyzer.ai" 
@@ -32,11 +35,13 @@
           </div>
         </div>
 
-        <div class="input-group">
-          <label>ACCESS KEYCODE</label>
-          <div class="input-wrapper">
-            <span class="material-symbols-outlined input-icon">lock</span>
+        <div class="auth-form-group">
+          <label class="auth-label">ACCESS KEYCODE</label>
+          <div style="position: relative;">
+            <span class="material-symbols-outlined" style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: #74829d; font-size: 1.25rem;">lock</span>
             <input 
+              class="auth-input"
+              style="padding-left: 2.75rem;"
               v-model="password" 
               type="password" 
               placeholder="••••••••" 
@@ -45,20 +50,20 @@
           </div>
         </div>
 
-        <button type="submit" class="submit-btn" :disabled="loading">
+        <button type="submit" class="auth-submit-btn" :disabled="loading">
           <template v-if="!loading">
-            ESTABLISH LINK <span class="material-symbols-outlined">arrow_forward</span>
+            ESTABLISH LINK <span class="material-symbols-outlined" style="font-size: 1.25rem;">arrow_forward</span>
           </template>
           <template v-else>
-            <span class="animate-spin material-symbols-outlined">sync</span>
+            <span class="animate-spin material-symbols-outlined" style="font-size: 1.25rem; animation: spin-slow 2s linear infinite;">sync</span>
             LINKING...
           </template>
         </button>
       </form>
 
-      <div class="auth-footer">
-        <p>Restricted access for authorized personnel only.</p>
-        <p class="system-status">System: GEMINI-1.5-PRO ACTIVE</p>
+      <div style="margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.05); text-align: center; color: #74829d; font-size: 0.75rem;">
+        <p style="margin-bottom: 0.25rem;">Restricted access for authorized personnel only.</p>
+        <p style="font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.1em; color: #b9c7e4;">System: GEMINI-1.5-PRO ACTIVE</p>
       </div>
     </div>
   </div>
