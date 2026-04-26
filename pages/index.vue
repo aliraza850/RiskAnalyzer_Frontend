@@ -139,5 +139,14 @@
   </div>
 </template>
 
-<script src="../logic/index.js"></script>
+<script setup>
+import { ref } from 'vue';
+
+definePageMeta({
+  layout: false
+});
+
+const showAuthModal = ref(false);
+</script>
+
 <style src="./index.css" scoped></style>

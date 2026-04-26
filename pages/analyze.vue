@@ -188,7 +188,72 @@
   </div>
 </template>
 
-<script src="../logic/analyze.js"></script>
+<script setup>
+import { ref, reactive } from 'vue';
+import { useRouter, useRuntimeConfig, navigateTo } from '#imports';
+
+const router = useRouter();
+const config = useRuntimeConfig();
+
+const activeTab = ref('text');
+const isAnalyzing = ref(false);
+const dragOver = ref(false);
+const selectedFile = ref(null);
+
+const form = reactive({
+  title: '',
+  text: ''
+});
+
+const handleFileSelect = (e) => {
+  const file = e.target.files[0];
+  if (file) selectedFile.value = file;
+};
+
+const handleDrop = (e) => {
+  dragOver.value = false;
+  const file = e.dataTransfer.files[0];
+  if (file) selectedFile.value = file;
+};
+
+const submitAnalysis = async () => {
+  isAnalyzing.value = true;
+  try {
+    const formData = new FormData();
+    formData.append('title', form.title || 'Untitled Assessment');
+    
+    if (selectedFile.value) {
+      formData.append('file', selectedFile.value);
+    } else {
+      formData.append('text', form.text);
+    }
+
+    const response = await fetch(`${config.public.apiBase}/reports`, {
+      method: 'POST',
+      body: formData,
+      credentials: 'include'
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const reportId = data.reportId || data.id || data.report?._id || data.report?.id;
+      if (reportId) {
+        await navigateTo(`/report/${reportId}`);
+      } else {
+        await navigateTo('/dashboard');
+      }
+    } else {
+      alert('Analysis node failure. Check system logs.');
+    }
+  } catch (error) {
+    console.error('Analysis error:', error);
+    alert('Neural link timeout. Please retry scan.');
+  } finally {
+    isAnalyzing.value = false;
+  }
+};
+</script>
+
 <style src="./analyze.css" scoped></style>
 <style scoped>
 @keyframes bounce {

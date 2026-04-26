@@ -41,7 +41,87 @@
   </div>
 </template>
 
-<script src="../logic/dashboard.js"></script>
+<script setup>
+import { ref, onMounted, computed, watch, nextTick } from 'vue';
+import { useAuth, useRuntimeConfig } from '#imports';
+
+const { user } = useAuth();
+const reports = ref([]);
+const loading = ref(true);
+const errorMsg = ref(null);
+const config = useRuntimeConfig();
+
+const getReports = async () => {
+  if (!user.value) {
+    loading.value = false;
+    return;
+  }
+  
+  loading.value = true;
+  errorMsg.value = null;
+
+  try {
+    const response = await fetch(`${config.public.apiBase}/reports`, {
+      credentials: 'include',
+      signal: AbortSignal.timeout(10000)
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      reports.value = Array.isArray(data) ? data : (data.reports || []);
+    } else {
+      const errData = await response.json().catch(() => ({}));
+      errorMsg.value = errData.error || `Server error: ${response.status}`;
+      reports.value = [];
+    }
+  } catch (error) {
+    console.error('Dashboard data fetch error:', error);
+    errorMsg.value = 'Failed to connect to intelligence server. Please check your connection.';
+    reports.value = [];
+  } finally {
+    loading.value = false;
+  }
+};
+
+// Watch user — fires when user becomes available
+watch(
+  user,
+  async (newUser, oldUser) => {
+    if (newUser && newUser !== oldUser) {
+      await nextTick();
+      getReports();
+    } else if (newUser && !reports.value.length) {
+      await nextTick();
+      getReports();
+    }
+  },
+  { immediate: true }
+);
+
+onMounted(async () => {
+  if (user.value && !reports.value.length) {
+    await nextTick();
+    getReports();
+  }
+});
+
+const averageRiskScore = computed(() => {
+  if (!reports.value || reports.value.length === 0) return 42;
+  const total = reports.value.reduce((acc, report) => acc + (report.overallScore || 0), 0);
+  return Math.round(total / reports.value.length);
+});
+
+const criticalRisksCount = computed(() => {
+  if (!reports.value || reports.value.length === 0) return 0;
+  return reports.value.filter(report => (report.overallScore || 0) >= 66).length;
+});
+
+const userName = computed(() => {
+  if (!user.value || !user.value.email) return 'Agent';
+  return user.value.email.split('@')[0].replace(/[\._-]/g, ' ');
+});
+</script>
+
 <style src="./dashboard.css" scoped></style>
 <style scoped>
 .welcome-container {
