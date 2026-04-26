@@ -49,11 +49,16 @@
   flex-direction: column;
   position: relative;
   z-index: 10;
+  min-width: 0;
+  width: 100%;
 }
 
 .page-main {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+  width: 100%;
 }
 
 .page-main.with-nav {
