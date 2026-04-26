@@ -81,8 +81,14 @@ export default {
       return reports.value.filter(report => (report.overallScore || 0) >= 66).length;
     });
 
+    const userName = computed(() => {
+      if (!user.value || !user.value.email) return 'Agent';
+      return user.value.email.split('@')[0].replace(/[\._-]/g, ' ');
+    });
+
     return {
       user,
+      userName,
       reports,
       loading,
       errorMsg,

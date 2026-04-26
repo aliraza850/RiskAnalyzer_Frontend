@@ -33,8 +33,9 @@ export default {
           // Directly set user state so dashboard sees it immediately
           user.value = data.user;
           localStorage.setItem('user', JSON.stringify(data.user));
-          // Force re-verify with server
-          await checkAuth(true);
+          
+          // Background re-verify with server, don't block navigation
+          checkAuth(true);
           
           emit('close');
           router.push('/dashboard');

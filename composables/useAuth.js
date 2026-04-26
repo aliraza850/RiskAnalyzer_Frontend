@@ -16,7 +16,10 @@ export const useAuth = () => {
       const localUser = localStorage.getItem('user');
       if (localUser) {
         try {
-          user.value = JSON.parse(localUser);
+          const parsed = JSON.parse(localUser);
+          if (parsed && parsed.email) {
+            user.value = parsed;
+          }
         } catch {
           localStorage.removeItem('user');
         }
@@ -24,12 +27,17 @@ export const useAuth = () => {
     }
   };
 
-  const checkAuth = async (force = false) => {
-    // Always try to hydrate from localStorage first (instant UI)
+  // Call it immediately so any component calling useAuth gets hydrated state
+  if (process.client) {
     hydrateFromStorage();
+  }
 
+  const checkAuth = async (force = false) => {
     // Skip API call if already initialized and not forced
-    if (initialized.value && !force) return;
+    if (initialized.value && !force) {
+      loading.value = false;
+      return;
+    }
 
     loading.value = true;
     try {
@@ -52,7 +60,7 @@ export const useAuth = () => {
       initialized.value = true;
     } catch (error) {
       console.error('Auth verification failed:', error);
-      // Keep the localStorage-hydrated user on network failure
+      // Keep existing user if it's a network error, or nullify if preferred
     } finally {
       loading.value = false;
     }
