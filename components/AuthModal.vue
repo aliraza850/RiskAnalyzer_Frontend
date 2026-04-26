@@ -1,74 +1,68 @@
 <template>
-  <div class="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
-    <!-- Backdrop -->
-    <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" @click="$emit('close')"></div>
-    
-    <!-- Modal -->
-    <div class="relative w-full max-w-md glass-card rounded-2xl p-8 overflow-hidden animate-fade-in">
-      <div class="absolute -top-24 -right-24 w-48 h-48 bg-secondary-fixed/10 rounded-full blur-3xl"></div>
-      
-      <!-- Close Button -->
-      <button @click="$emit('close')" class="absolute top-4 right-4 text-on-primary-container hover:text-white transition-colors">
+  <div class="modal-overlay" @click.self="$emit('close')">
+    <div class="modal-content auth-glass">
+      <button class="close-btn" @click="$emit('close')">
         <span class="material-symbols-outlined">close</span>
       </button>
 
-      <div class="space-y-6">
-        <div class="text-center">
-          <h2 class="font-headline-md text-headline-md text-white mb-2">Access Intelligence</h2>
-          <p class="text-body-sm text-on-primary-container">Initialize secure session to Command Center.</p>
+      <div class="auth-header">
+        <div class="auth-icon-container">
+          <span class="material-symbols-outlined">security</span>
+        </div>
+        <h2 class="auth-title">Neural Access Link</h2>
+        <p class="auth-subtitle">Initialize your secure risk intelligence session</p>
+      </div>
+
+      <form @submit.prevent="handleLogin" class="auth-form">
+        <div v-if="error" class="error-message">
+          <span class="material-symbols-outlined">warning</span>
+          {{ error }}
         </div>
 
-        <form @submit.prevent="handleLogin" class="space-y-4">
-          <div class="space-y-1 group">
-            <label for="email" class="block text-label-md text-primary mb-1 uppercase tracking-widest opacity-70 group-focus-within:opacity-100 transition-opacity">COGNITIVE IDENTITY (EMAIL)</label>
+        <div class="input-group">
+          <label>INTELLIGENCE IDENTIFIER</label>
+          <div class="input-wrapper">
+            <span class="material-symbols-outlined input-icon">alternate_email</span>
             <input 
               v-model="email" 
               type="email" 
-              id="email" 
-              required 
-              placeholder="name@intelligence.ai"
-              class="w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-3 text-white placeholder:text-on-primary-container/40 focus:outline-none focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed transition-all"
-            >
+              placeholder="operator@riskanalyzer.ai" 
+              required
+            />
           </div>
+        </div>
 
-          <div class="space-y-1 group">
-            <label for="password" class="block text-label-md text-primary mb-1 uppercase tracking-widest opacity-70 group-focus-within:opacity-100 transition-opacity">ACCESS TOKEN (PASSWORD)</label>
+        <div class="input-group">
+          <label>ACCESS KEYCODE</label>
+          <div class="input-wrapper">
+            <span class="material-symbols-outlined input-icon">lock</span>
             <input 
               v-model="password" 
               type="password" 
-              id="password" 
-              required 
-              placeholder="••••••••"
-              class="w-full bg-surface-container border border-outline-variant rounded-lg px-4 py-3 text-white placeholder:text-on-primary-container/40 focus:outline-none focus:border-secondary-fixed focus:ring-1 focus:ring-secondary-fixed transition-all"
-            >
+              placeholder="••••••••" 
+              required
+            />
           </div>
-
-          <button 
-            type="submit" 
-            :disabled="loading"
-            class="group relative w-full bg-secondary-fixed text-on-secondary-fixed font-headline-md py-4 rounded-xl hover:bg-secondary-fixed-dim transition-all shadow-lg shadow-secondary-fixed/20 flex items-center justify-center gap-2 overflow-hidden mt-6"
-          >
-            <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            <span v-if="loading" class="material-symbols-outlined animate-spin">progress_activity</span>
-            <span v-else style="display: flex; align-items: center; gap: 0.5rem;">
-              INITIATE LOGIN <span class="material-symbols-outlined" style="font-size: 14px;">bolt</span>
-            </span>
-          </button>
-        </form>
-
-        <p v-if="error" class="error-msg">
-          {{ error }}
-        </p>
-
-        <div style="padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; margin-top: 1.5rem;">
-          <p style="font-size: 10px; color: #74829d; letter-spacing: 0.2em; text-transform: uppercase;">
-            SECURED BY ZERO-TRUST NEURAL ARCHITECTURE
-          </p>
         </div>
+
+        <button type="submit" class="submit-btn" :disabled="loading">
+          <template v-if="!loading">
+            ESTABLISH LINK <span class="material-symbols-outlined">arrow_forward</span>
+          </template>
+          <template v-else>
+            <span class="animate-spin material-symbols-outlined">sync</span>
+            LINKING...
+          </template>
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Restricted access for authorized personnel only.</p>
+        <p class="system-status">System: GEMINI-1.5-PRO ACTIVE</p>
       </div>
     </div>
   </div>
 </template>
 
-<script src="./AuthModal.js"></script>
+<script src="../logic/AuthModal.js"></script>
 <style src="./AuthModal.css" scoped></style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="fade-in-up">
+  <div class="fade-in-up dashboard-page">
     <!-- Welcome Header -->
     <div class="dashboard-header" v-if="user">
       <h1 class="dashboard-title">Command Center</h1>
@@ -14,22 +14,31 @@
       </div>
     </div>
 
+    <!-- Error Alert -->
+    <div v-if="errorMsg" class="error-banner">
+      <span class="material-symbols-outlined">warning</span>
+      <p>{{ errorMsg }}</p>
+      <button @click="getReports" class="retry-btn">Retry Connection</button>
+    </div>
+
     <!-- Hero Section: Bento Grid -->
     <div class="stats-grid">
-      <!-- Average Risk Score -->
-      <StitchRiskScore :score="averageRiskScore" />
-      
-      <!-- Total Analyses -->
-      <StitchTotalAnalyses :total="reports.length" />
-      
-      <!-- Critical Risks -->
-      <StitchCriticalRisks :count="criticalRisksCount" />
+      <template v-if="loading && !reports.length">
+        <div class="skeleton-card" v-for="i in 3" :key="i"></div>
+      </template>
+      <template v-else>
+        <StitchRiskScore :score="averageRiskScore" />
+        <StitchTotalAnalyses :total="reports.length" />
+        <StitchCriticalRisks :count="criticalRisksCount" />
+      </template>
     </div>
 
     <!-- Recent Reports Table -->
-    <StitchRecentReports :reports="reports" :loading="loading" />
+    <div class="reports-section">
+      <StitchRecentReports :reports="reports" :loading="loading" />
+    </div>
   </div>
 </template>
 
-<script src="./dashboard.js"></script>
+<script src="../logic/dashboard.js"></script>
 <style src="./dashboard.css" scoped></style>

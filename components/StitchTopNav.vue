@@ -88,14 +88,6 @@
               <span class="font-medium">Threat Actors</span>
             </NuxtLink>
 
-            <button 
-              @click="toggleTheme" 
-              class="flex items-center gap-4 p-4 rounded-xl text-outline hover:bg-surface-variant/50 dark:hover:bg-white/5 transition-all text-left w-full"
-            >
-              <span class="material-symbols-outlined">{{ isDark ? 'light_mode' : 'dark_mode' }}</span>
-              <span class="font-medium">{{ isDark ? 'Light Mode' : 'Dark Mode' }}</span>
-            </button>
-
             <div class="h-px bg-outline-variant/20 dark:bg-white/10 my-2"></div>
 
             <button class="flex items-center gap-4 p-4 rounded-xl text-slate-400 hover:bg-white/5 transition-all text-left w-full opacity-50 cursor-not-allowed">
@@ -123,40 +115,5 @@
   </header>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-import { useAuth } from '~/composables/useAuth';
-
-const route = useRoute();
-const { user, logout } = useAuth();
-const { isDark, toggleTheme } = useTheme();
-
-const isMenuOpen = ref(false);
-
-const handleLogout = async () => {
-  isMenuOpen.value = false;
-  await logout();
-};
-</script>
-
-<style scoped>
-.drawer-enter-active,
-.drawer-leave-active {
-  transition: all 0.3s ease-in-out;
-}
-
-.drawer-enter-from,
-.drawer-leave-to {
-  opacity: 0;
-}
-
-.drawer-enter-active .relative,
-.drawer-leave-active .relative {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.drawer-enter-from .relative,
-.drawer-leave-to .relative {
-  transform: translateX(100%);
-}
-</style>
+<script src="../logic/StitchTopNav.js"></script>
+<style src="./StitchTopNav.css" scoped></style>

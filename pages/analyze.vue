@@ -193,7 +193,7 @@
   </div>
 </template>
 
-<script src="./analyze.js"></script>
+<script src="../logic/analyze.js"></script>
 <style src="./analyze.css" scoped></style>
 <style scoped>
 .absolute-fill {

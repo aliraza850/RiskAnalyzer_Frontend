@@ -440,12 +440,12 @@ const _routes = [
   {
     name: __nuxt_page_meta$1?.name,
     path: "/dashboard",
-    component: () => import('./dashboard-Cb5q_OH1.mjs'),
+    component: () => import('./dashboard-nYXcMAe-.mjs'),
     children: [
       {
         name: "dashboard",
         path: "",
-        component: () => import('./dashboard-CAwbWn7K.mjs')
+        component: () => import('./dashboard-BR1xPuL_.mjs')
       }
     ]
   },

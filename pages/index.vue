@@ -139,5 +139,5 @@
   </div>
 </template>
 
-<script src="./index.js"></script>
+<script src="../logic/index.js"></script>
 <style src="./index.css" scoped></style>
