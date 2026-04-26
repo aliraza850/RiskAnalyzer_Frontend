@@ -1,7 +1,7 @@
 import process from 'node:process';globalThis._importMeta_=globalThis._importMeta_||{url:"file:///_entry.js",env:process.env};import { hasInjectionContext, getCurrentInstance, toRef, isRef, createApp, provide, onErrorCaptured, onServerPrefetch, unref, createVNode, resolveDynamicComponent, shallowReactive, reactive, effectScope, inject, defineAsyncComponent, mergeProps, computed, getCurrentScope, shallowRef, isReadonly, useSSRContext, isShallow, isReactive, toRaw } from 'vue';
 import { p as parseURL, l as encodePath, m as decodePath, n as hasProtocol, o as isScriptProtocol, k as joinURL, w as withQuery, q as sanitizeStatusCode, r as getContext, $ as $fetch, v as createHooks, h as createError$1, x as executeAsync, y as defu } from '../_/nitro.mjs';
 import { b as baseURL } from '../routes/renderer.mjs';
-import { useRouter as useRouter$1, useRoute as useRoute$1, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
+import { useRouter as useRouter$1, createMemoryHistory, createRouter, START_LOCATION } from 'vue-router';
 import { ssrRenderSuspense, ssrRenderComponent, ssrRenderVNode } from 'vue/server-renderer';
 import 'node:http';
 import 'node:https';
@@ -421,31 +421,31 @@ const _routes = [
       {
         name: "index",
         path: "",
-        component: () => import('./index-BY-rPySn.mjs')
+        component: () => import('./index-OirE3zQm.mjs')
       }
     ]
   },
   {
     name: __nuxt_page_meta$2?.name,
     path: "/analyze",
-    component: () => import('./analyze-CoKAg9IJ.mjs'),
+    component: () => import('./analyze-B4jqHe24.mjs'),
     children: [
       {
         name: "analyze",
         path: "",
-        component: () => import('./analyze-CJlut82D.mjs')
+        component: () => import('./analyze-DSZpcyfM.mjs')
       }
     ]
   },
   {
     name: __nuxt_page_meta$1?.name,
     path: "/dashboard",
-    component: () => import('./dashboard-B_yVIcpR.mjs'),
+    component: () => import('./dashboard-Cb5q_OH1.mjs'),
     children: [
       {
         name: "dashboard",
         path: "",
-        component: () => import('./dashboard-DtyDINfQ.mjs')
+        component: () => import('./dashboard-CAwbWn7K.mjs')
       }
     ]
   },
@@ -453,12 +453,12 @@ const _routes = [
     name: "auth-verify",
     path: "/auth/verify",
     meta: __nuxt_page_meta || {},
-    component: () => import('./verify-DfzCqtNy.mjs')
+    component: () => import('./verify-CLzEF1EO.mjs')
   },
   {
     name: "report-id",
     path: "/report/:id()",
-    component: () => import('./_id_-Cr1BUcrB.mjs')
+    component: () => import('./_id_-BCrQ7MWx.mjs')
   }
 ];
 const ROUTE_KEY_PARENTHESES_RE = /(:\w+)\([^)]+\)/g;
@@ -908,7 +908,7 @@ const useTheme = () => {
 };
 const AppComponent = {
   setup() {
-    const route = useRoute$1();
+    const route = useRoute();
     useAuth();
     const { isDark } = useTheme();
     const isLanding = computed(() => route.path === "/");
@@ -932,7 +932,7 @@ const _sfc_main$1 = {
     const statusText = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import('./error-404-DTB_Y2pK.mjs'));
+    const _Error404 = defineAsyncComponent(() => import('./error-404-DjkSY6mo.mjs'));
     const _Error = defineAsyncComponent(() => import('./error-500-BCErCBD8.mjs'));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
@@ -1014,5 +1014,5 @@ let entry;
 }
 const entry_default = ((ssrContext) => entry(ssrContext));
 
-export { useRuntimeConfig as a, useRouter as b, useNuxtApp as c, nuxtLinkDefaults as d, entry_default as default, encodeRoutePath as e, navigateTo as n, resolveRouteObject as r, tryUseNuxtApp as t, useAuth as u };
+export { useAuth as a, useRuntimeConfig as b, useNuxtApp as c, nuxtLinkDefaults as d, entry_default as default, encodeRoutePath as e, navigateTo as n, resolveRouteObject as r, tryUseNuxtApp as t, useRouter as u };
 //# sourceMappingURL=server.mjs.map

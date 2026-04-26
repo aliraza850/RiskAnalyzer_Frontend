@@ -1,4 +1,4 @@
-import { useRoute } from 'vue-router';
+import { useRoute } from '#imports';
 
 export default {
   setup() {

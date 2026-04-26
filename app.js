@@ -1,7 +1,5 @@
 import { computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
-import { useAuth } from '~/composables/useAuth';
-import { useTheme } from '~/composables/useTheme';
+import { useRoute, useAuth, useTheme } from '#imports';
 
 export default {
   setup() {

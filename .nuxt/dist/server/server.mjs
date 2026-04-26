@@ -4,7 +4,7 @@ import { baseURL } from "#internal/nuxt/paths";
 import { createHooks } from "C:/Users/Ali Raza/Desktop/AI_Simulator/risk-analyzer/frontend/node_modules/hookable/dist/index.mjs";
 import { getContext, executeAsync } from "C:/Users/Ali Raza/Desktop/AI_Simulator/risk-analyzer/frontend/node_modules/unctx/dist/index.mjs";
 import { sanitizeStatusCode, createError as createError$1 } from "C:/Users/Ali Raza/Desktop/AI_Simulator/risk-analyzer/frontend/node_modules/h3/dist/index.mjs";
-import { START_LOCATION, useRouter as useRouter$1, createMemoryHistory, createRouter, useRoute as useRoute$1 } from "vue-router";
+import { START_LOCATION, useRouter as useRouter$1, createMemoryHistory, createRouter } from "vue-router";
 import { defu } from "C:/Users/Ali Raza/Desktop/AI_Simulator/risk-analyzer/frontend/node_modules/defu/dist/defu.mjs";
 import { hasProtocol, joinURL, withQuery, parseURL, encodePath, decodePath, isScriptProtocol } from "C:/Users/Ali Raza/Desktop/AI_Simulator/risk-analyzer/frontend/node_modules/ufo/dist/index.mjs";
 import { ssrRenderComponent, ssrRenderSuspense, ssrRenderVNode } from "vue/server-renderer";
@@ -412,31 +412,31 @@ const _routes = [
       {
         name: "index",
         path: "",
-        component: () => import("./_nuxt/index-BY-rPySn.js")
+        component: () => import("./_nuxt/index-OirE3zQm.js")
       }
     ]
   },
   {
     name: __nuxt_page_meta$2?.name,
     path: "/analyze",
-    component: () => import("./_nuxt/analyze-CoKAg9IJ.js"),
+    component: () => import("./_nuxt/analyze-B4jqHe24.js"),
     children: [
       {
         name: "analyze",
         path: "",
-        component: () => import("./_nuxt/analyze-CJlut82D.js")
+        component: () => import("./_nuxt/analyze-DSZpcyfM.js")
       }
     ]
   },
   {
     name: __nuxt_page_meta$1?.name,
     path: "/dashboard",
-    component: () => import("./_nuxt/dashboard-B_yVIcpR.js"),
+    component: () => import("./_nuxt/dashboard-Cb5q_OH1.js"),
     children: [
       {
         name: "dashboard",
         path: "",
-        component: () => import("./_nuxt/dashboard-DtyDINfQ.js")
+        component: () => import("./_nuxt/dashboard-CAwbWn7K.js")
       }
     ]
   },
@@ -444,12 +444,12 @@ const _routes = [
     name: "auth-verify",
     path: "/auth/verify",
     meta: __nuxt_page_meta || {},
-    component: () => import("./_nuxt/verify-DfzCqtNy.js")
+    component: () => import("./_nuxt/verify-CLzEF1EO.js")
   },
   {
     name: "report-id",
     path: "/report/:id()",
-    component: () => import("./_nuxt/_id_-Cr1BUcrB.js")
+    component: () => import("./_nuxt/_id_-BCrQ7MWx.js")
   }
 ];
 const ROUTE_KEY_PARENTHESES_RE = /(:\w+)\([^)]+\)/g;
@@ -899,7 +899,7 @@ const useTheme = () => {
 };
 const AppComponent = {
   setup() {
-    const route = useRoute$1();
+    const route = useRoute();
     useAuth();
     const { isDark } = useTheme();
     const isLanding = computed(() => route.path === "/");
@@ -923,7 +923,7 @@ const _sfc_main$1 = {
     const statusText = _error.statusMessage ?? (is404 ? "Page Not Found" : "Internal Server Error");
     const description = _error.message || _error.toString();
     const stack = void 0;
-    const _Error404 = defineAsyncComponent(() => import("./_nuxt/error-404-DTB_Y2pK.js"));
+    const _Error404 = defineAsyncComponent(() => import("./_nuxt/error-404-DjkSY6mo.js"));
     const _Error = defineAsyncComponent(() => import("./_nuxt/error-500-BCErCBD8.js"));
     const ErrorTemplate = is404 ? _Error404 : _Error;
     return (_ctx, _push, _parent, _attrs) => {
@@ -1005,8 +1005,8 @@ let entry;
 }
 const entry_default = ((ssrContext) => entry(ssrContext));
 export {
-  useRuntimeConfig as a,
-  useRouter as b,
+  useAuth as a,
+  useRuntimeConfig as b,
   useNuxtApp as c,
   nuxtLinkDefaults as d,
   entry_default as default,
@@ -1014,6 +1014,6 @@ export {
   navigateTo as n,
   resolveRouteObject as r,
   tryUseNuxtApp as t,
-  useAuth as u
+  useRouter as u
 };
 //# sourceMappingURL=server.mjs.map

@@ -1,6 +1,5 @@
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useAuth } from '~/composables/useAuth';
+import { useRouter, useAuth, useRuntimeConfig } from '#imports';
 
 export default {
   emits: ['close'],

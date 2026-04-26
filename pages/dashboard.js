@@ -1,5 +1,5 @@
 import { ref, onMounted, computed, watch } from 'vue';
-import { useAuth } from '~/composables/useAuth';
+import { useAuth, useRuntimeConfig } from '#imports';
 
 export default {
   setup() {
