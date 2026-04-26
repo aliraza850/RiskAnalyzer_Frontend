@@ -65,6 +65,7 @@
 
 @media (max-width: 768px) {
   .page-main.with-nav {
+    padding: 1rem;
     padding-bottom: 90px;
   }
 }
