@@ -38,12 +38,12 @@
                   <div class="value">99.9%</div>
                   <div class="label">Analysis Accuracy</div>
                 </div>
-                <div style="width: 1px; height: 2.5rem; background-color: rgba(255,255,255,0.1);"></div>
+                <div class="metric-divider"></div>
                 <div class="metric-item">
                   <div class="value">&lt; 2s</div>
                   <div class="label">Processing Latency</div>
                 </div>
-                <div style="width: 1px; height: 2.5rem; background-color: rgba(255,255,255,0.1);"></div>
+                <div class="metric-divider"></div>
                 <div class="metric-item">
                   <div class="value">500+</div>
                   <div class="label">Risk Vectors</div>

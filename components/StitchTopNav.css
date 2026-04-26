@@ -161,12 +161,13 @@
 
 .hamburger-btn {
   display: block;
-  padding: 0.75rem;
+  padding: 0.5rem;
   border-radius: 0.5rem;
-  background: transparent;
-  border: none;
+  background: rgba(12, 19, 36, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   color: var(--color-surface-tint);
   cursor: pointer;
+  backdrop-filter: blur(8px);
 }
 
 @media (min-width: 768px) {
